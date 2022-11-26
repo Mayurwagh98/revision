@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-let TodoInput = ({handleAddTodo}) =>{
+let TodoInput = ({handleAddTodo}) =>{ //destructing props handleAddTodo
 
     let [text, setText] = useState("")
 
@@ -10,7 +10,7 @@ let TodoInput = ({handleAddTodo}) =>{
 
             handleAddTodo(text)
 
-            setText("")
+            setText("") //once the todo is added it will make input field empty
         }
     }
 
