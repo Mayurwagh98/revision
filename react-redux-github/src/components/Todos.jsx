@@ -69,12 +69,12 @@ let Todos = () => {
     <>
       <h1>Todos</h1>
       {isLoading ? (
-        <div>Loading...</div>
+        <div>Loading...</div> {/*/if isLoading state is true then it will show Loading...*/}
       ) : (
-        <TodoInput handleAddTodo={handleAddTodo} />
+        <TodoInput handleAddTodo={handleAddTodo} /> {/*else it will show todo lists*/}
       )}
       {todos.length > 0 &&
-        todos.map((item) => {
+        todos.map((item) => { //mapping todos
           return (
             <div key={item.id}>
               {item.title} - {item.status ? "True" : "False"}
