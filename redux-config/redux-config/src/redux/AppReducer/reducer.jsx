@@ -4,7 +4,14 @@ import {
     Get_Todos_Failure,
   } from "./actionTypes";
   
-  let Reducer = (state, action) => {
+  let initialState = {
+    todos: [],
+    isLoading: false,
+    isError: false,
+    status: false,
+  };
+
+  let reducer = (state = initialState, action) => {
     switch (action.type) {
       case Get_Todos_Request:
         return {
@@ -32,4 +39,4 @@ import {
     }
   };
   
-  export { Reducer };
+  export { reducer };

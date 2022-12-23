@@ -32,6 +32,9 @@ let reducer = (oldState = initialState, action) => {
         isAuthError: true,
         isAuth: false,
       };
+
+      default:
+        return oldState
   }
 };
 
