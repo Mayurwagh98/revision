@@ -1,27 +1,29 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   addTodoFailure,
   addTodoRequest,
   addTodoSuccess,
+  getTodos,
 } from "../Redux/action";
 
-let TodoInput = ({ getTodos }) => {
+let TodoInput = () => {
   let [text, setText] = useState("");
   let dispatch = useDispatch();
 
-  let handleaddTodo = () => {
+  let addTodo = () => {
     if (text) {
       let payload = {
         title: text,
         status: false,
       };
       dispatch(addTodoRequest());
-      axios
+      return axios
         .post("http://localhost:8080/todos", payload)
         .then((res) => {
-          dispatch(addTodoSuccess(res.data));
+          dispatch(addTodoSuccess());
+
           setText("");
           console.log(res.data);
         })
@@ -32,9 +34,13 @@ let TodoInput = ({ getTodos }) => {
     }
   };
 
-  useEffect(() => {
-    getTodos();
-  });
+  let handleaddTodo = () => {
+    // add the data in db.json file first, and then make a get request.
+    addTodo().then(() => {
+      getTodos(dispatch);
+    });
+  };
+
   return (
     <>
       <h1>Todos Input</h1>
