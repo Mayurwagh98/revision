@@ -37,7 +37,8 @@ let TodoInput = () => {
   let handleaddTodo = () => {
     // add the data in db.json file first, and then make a get request.
     addTodo().then(() => {
-      getTodos(dispatch);
+      // getTodos(dispatch);
+      dispatch(getTodos)
     });
   };
 
