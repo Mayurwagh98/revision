@@ -8,7 +8,8 @@ let Todos = () => {
   let dispatch = useDispatch();
 
   useEffect(() => {
-    getTodos(dispatch);
+    // getTodos(dispatch);
+    dispatch(getTodos)
   }, []);
 
   return (
