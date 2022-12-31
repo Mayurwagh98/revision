@@ -3,24 +3,28 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getMusicRecords } from "../Redux/action";
 import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 let MusicAlbums = () => {
   let dispatch = useDispatch();
-  let [searchParams] = useSearchParams()
+  let [searchParams] = useSearchParams();
   let musicData = useSelector((store) => store.musicRecord); // getting music album data form store, as we store it using reducer
   console.log(musicData);
+  let location = useLocation();
 
   useEffect(() => {
-    let genre = searchParams.getAll("genre")
-    let queryParams = {
-      params: {
-        genre: genre
-      }
+    if (location || musicData.length === 0) {
+      let genre = searchParams.getAll("genre");
+      let queryParams = {
+        params: {
+          genre: genre,
+        },
+      };
+      dispatch(getMusicRecords(queryParams)); // don't need to invoke getMusicRecords here,
     }
 
-    getMusicRecords(dispatch)
-  }, []);
+    // cause it will be invoked in thunk middleware itself
+  }, [location.search]);
 
   return (
     <>
