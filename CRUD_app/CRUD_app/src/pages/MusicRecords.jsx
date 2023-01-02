@@ -1,36 +1,38 @@
-import React from "react";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getMusicRecords } from "../Redux/action";
-import { useSelector } from "react-redux";
+import styled from "styled-components";
+import { FilterSort } from "../Components/FilterSort";
+import { MusicAlbums } from "../Components/MusicAlbums";
 
 let MusicRecords = () => {
-  let dispatch = useDispatch();
-  let musicData = useSelector((store) => store.musicRecord); // getting music album data form store, as we store it using reducer
-  console.log(musicData);
-
-  useEffect(() => {
-    getMusicRecords(dispatch);
-  }, []);
-
+  const Wrapper = styled.div`
+    border: 1px solid red;
+    display: flex;
+    min-height: 100vh;
+    `;
+  const WrapperFilterSort = styled.div`
+    width: 200px;
+    border: 1px solid black;
+  `;
+  const WrapperMusicAlbum = styled.div`
+    /* border: 1px solid blue; */
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
+    justify-content: center;
+    grid-gap: 10px;
+    margin: 10px;
+  `;
   return (
     <>
       <h1>MusicRecords</h1>
-      <div>
-        {musicData.map((item) => {
-          return (
-            <div key={item.id}>
-              <div>
-                <img src={item.img} alt={item.name} />
-              </div>
-              <div>{item.genre}</div>
-              <div>{item.name}</div>
-              <div>{item.year}</div>
+      <Wrapper>
+        <WrapperFilterSort>
+          <FilterSort />
+        </WrapperFilterSort>
 
-            </div>
-          );
-        })}
-      </div>
+        <WrapperMusicAlbum>
+          <MusicAlbums />
+        </WrapperMusicAlbum>
+      </Wrapper>
     </>
   );
 };
