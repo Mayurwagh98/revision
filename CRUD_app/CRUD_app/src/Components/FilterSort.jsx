@@ -11,6 +11,7 @@ let FilterSort = () => {
   // and after that refreshes the page, the category should still be checked
   let [category, setCategory] = useState(searchParams.getAll("genre") || []);
   //   console.log(searchParams.getAll("genre"));
+  let [sortData, setSortData] = useState(searchParams.get("sortData") || []);
 
   let handleFilter = (event) => {
     let option = event.target.value;
@@ -29,13 +30,18 @@ let FilterSort = () => {
   };
   console.log(category);
 
+  let handleSort = (e) => {
+    setSortData(e.target.value);
+  };
+
   useEffect(() => {
     //used useEffect because every time user clicks on filter, search param should change and DOM should re-render
 
     let params = {};
     category && (params.genre = category);
+    sortData && (params.sortData = sortData);
     setSearchParams(params);
-  }, [category, setSearchParams]);
+  }, [category, setSearchParams, sortData]);
 
   return (
     <>
@@ -76,6 +82,27 @@ let FilterSort = () => {
             onChange={handleFilter}
           />
           <label>Heavy Metal</label>
+        </div>
+        <h2>Sort</h2>
+        <div onChange={handleSort}>
+          <div>
+            <input
+              type="radio"
+              value="asc"
+              name="sortData"
+              defaultChecked={sortData === "asc"}
+            />
+            <label>Ascending</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              value="desc"
+              name="sortData"
+              defaultChecked={sortData === "desc"}
+            />
+            <label>Descending</label>
+          </div>
         </div>
       </div>
     </>
