@@ -18,6 +18,8 @@ let MusicAlbums = () => {
       let queryParams = {
         params: {
           genre: genre,
+          _sort: searchParams.get("sortData") && "year",
+          _order: searchParams.get("sortData")
         },
       };
       dispatch(getMusicRecords(queryParams)); // don't need to invoke getMusicRecords here,
