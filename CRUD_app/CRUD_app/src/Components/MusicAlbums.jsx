@@ -30,7 +30,7 @@ let MusicAlbums = () => {
 
   return (
     <>
-      <div>
+      {/* <div style={{display:"grid", gridTemplateColumns:"repeat(4,1fr)"}}> */}
         {musicData.map((item) => {
           return (
             <div key={item.id}>
@@ -43,7 +43,7 @@ let MusicAlbums = () => {
             </div>
           );
         })}
-      </div>
+      {/* </div> */}
     </>
   );
 };
