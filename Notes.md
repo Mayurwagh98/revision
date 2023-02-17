@@ -22,3 +22,38 @@ https://developer.mozilla.org/en-US/docs/Glossary/Primitive
 
 * `udefined == null` // true
 * `undefined === null` // false
+
+## Callback function
+
+A callback function is a function passed into another function as an argument, which is then invoked inside the outer function to complete some kind of routine or action.
+
+```
+function greeting(name) {
+  alert(`Hello, ${name}`);
+}
+
+function processUserInput(callback) {
+  const name = prompt("Please enter your name.");
+  callback(name);
+}
+
+processUserInput(greeting);
+```
+## Higher Order Function
+
+A higher order function is a function that takes one or more functions as arguments, or returns a function as its result.
+
+```
+// Callback function, passed as a parameter in the higher order function
+function callbackFunction(){
+    console.log('I am  a callback function');
+}
+
+// higher order function
+function higherOrderFunction(func){
+    console.log('I am higher order function')
+    func()
+}
+
+higherOrderFunction(callbackFunction);
+```
