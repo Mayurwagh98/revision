@@ -59,7 +59,9 @@ higherOrderFunction(callbackFunction);
 ```
 Ref- https://www.freecodecamp.org/news/higher-order-functions-in-javascript-explained/
 `map` - 
+
 Example 1: Suppose we want to add 10 to every element in a array. We can use the map() method to map over every element in the array to add 10 to it.
+
 ```
 const arr = [1, 2, 3, 4, 5];
 const output = arr.map((num) => num += 10)
@@ -71,6 +73,7 @@ In the above example, arr is an array with five elements: 1, 2, 3, 4, and 5. map
 The callback function that is being passed to map uses the arrow function syntax, and it takes a single argument num. This function adds 10 to num (every element in the array) and returns the result.
 
 Example 2: Here we have an array of users. Suppose we only want their first and last name. We can simply use the map() method to extract it from the users array.
+
 ```
 const users = [
     {firstName: 'John', lastName: 'Doe', age: 25},
