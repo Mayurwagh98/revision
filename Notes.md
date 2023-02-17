@@ -58,6 +58,7 @@ function higherOrderFunction(func){
 higherOrderFunction(callbackFunction);
 ```
 Ref- https://www.freecodecamp.org/news/higher-order-functions-in-javascript-explained/
+
 `map` - 
 
 Example 1: Suppose we want to add 10 to every element in a array. We can use the map() method to map over every element in the array to add 10 to it.
