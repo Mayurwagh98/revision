@@ -296,6 +296,7 @@ Local scope is a characteristic of variables that makes them local (i.e., the va
 - block scope
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/block
+
 The scope created with a pair of curly braces (a block).
 
 Block scoping rules with let, const, class, or function declaration in strict mode
