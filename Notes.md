@@ -117,3 +117,80 @@ const output = users.filter(({age}) => age > 30)
 console.log(output); // [{firstName: 'Jack', lastName: 'Doe', age: 35}, {firstName: 'Jill', lastName: 'Doe', age: 40}, {firstName: 'Joe', lastName: 'Doe', age: 45}]
 ```
 In the above code, users is an array of objects representing users. Each object has three properties: firstName, lastName, and age.
+
+`reduce` - used it when you want to perform some operation on the elements of an array and return a single value as a result. The "single value" refers to the accumulated result of repeatedly applying a function to the elements of a sequence.
+
+Example 1: Using reduce() to sum up all the elements in an array:
+
+```
+const numbers = [1, 2, 3, 4, 5];
+
+const sum = numbers.reduce((total, currentValue) => {
+    return total + currentValue;
+}, 0)
+
+console.log(sum); // 15
+```
+
+Example 2: Using reduce() to find the maximum value in an array:
+
+```
+let numbers = [5, 20, 100, 60, 1];
+const maxValue = numbers.reduce((max, curr) => {
+    if(curr > max) max = curr;
+    return max;
+});
+console.log(maxValue); // 100
+```
+Example 3: Using reduce() to merge different objects in a single object:
+
+```
+const obj1 = { a: 1, b: 2 };
+const obj2 = { c: 3, d: 4 };
+const obj3 = { e: 5, f: 6 };
+const mergedObj = [obj1, obj2, obj3].reduce((acc, curr) => {
+    return { ...acc, ...curr };
+}, {});
+console.log(mergedObj); // { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 }
+```
+Example 4: Using reduce() to group objects in an array. For example, grouping products in a shopping cart according to their brand name.
+
+```
+const shoppingCart = [
+    {name: 'Apple', price: 1.99, quantity: 3},
+    {name: 'Apple', price: 1.99, quantity: 3},
+    {name: 'Xiomi', price: 2.99, quantity: 2},
+    {name: 'Samsung', price: 3.99, quantity: 1},
+    {name: 'Tesla', price: 3.99, quantity: 1},
+    {name: 'Tesla', price: 4.99, quantity: 4},
+    {name: 'Nokia', price: 4.99, quantity: 4},
+]
+
+const products = shoppingCart.reduce((productGroup, product) => {
+    const name = product.name;
+    if(productGroup[name] == null) {
+        productGroup[name] = [];
+    }
+    productGroup[name].push(product);
+
+    return productGroup;
+}, {});
+
+console.log(products);
+```
+```
+// OUTPUT
+{
+  Apple: [
+    { name: 'Apple', price: 1.99, quantity: 3 },
+    { name: 'Apple', price: 1.99, quantity: 3 }
+  ],
+  Xiomi: [ { name: 'Xiomi', price: 2.99, quantity: 2 } ],
+  Samsung: [ { name: 'Samsung', price: 3.99, quantity: 1 } ],
+  Tesla: [
+    { name: 'Tesla', price: 3.99, quantity: 1 },
+    { name: 'Tesla', price: 4.99, quantity: 4 }
+  ],
+  Nokia: [ { name: 'Nokia', price: 4.99, quantity: 4 } ]
+}
+```
