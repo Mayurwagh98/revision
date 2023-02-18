@@ -294,6 +294,7 @@ In client-side JavaScript, the global scope is generally the web page inside whi
 Local scope is a characteristic of variables that makes them local (i.e., the variable name is only bound to its value within a scope which is not the global scope).
 
 - block scope
+
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/block
 The scope created with a pair of curly braces (a block).
 
