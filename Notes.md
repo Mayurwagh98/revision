@@ -39,6 +39,23 @@ function processUserInput(callback) {
 
 processUserInput(greeting);
 ```
+```
+function divide(x,y){
+    return x/y
+}
+
+function multiply(x,y){
+    return x*y
+}
+
+function compute(callBack, x, y){
+    return callBack(x,y)
+}
+
+console.log(compute(divide, 10, 5))    // 2
+console.log(compute(multiply, 10, 5))` // 50
+```
+The most common examples of callback functions in JavaScript are addEventListener, array functions (filter, map, reduce) etc.
 ## Higher Order Function
 
 A higher order function is a function that takes one or more functions as arguments, or returns a function as its result.
