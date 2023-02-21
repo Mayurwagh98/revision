@@ -319,3 +319,76 @@ const c = 1;
 console.log(c); // 1; does not throw SyntaxError
 ```
 Note that the block-scoped const c = 2 does not throw a SyntaxError: Identifier 'c' has already been declared because it can be declared uniquely within the block.
+
+## Closures
+
+A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In other words, a closure gives you access to an outer function's scope from an inner function. In JavaScript, closures are created every time a function is created, at function creation time.
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
+
+```
+function init() {
+  var name = "Mozilla"; // name is a local variable created by init
+  function displayName() {
+    // displayName() is the inner function, that forms the closure
+    console.log(name); // use variable declared in the parent function
+  }
+  displayName();
+}
+init();
+```
+init() creates a local variable called name and a function called displayName(). The displayName() function is an inner function that is defined inside init() and is available only within the body of the init() function. Note that the displayName() function has no local variables of its own. However, since inner functions have access to the variables of outer functions, displayName() can access the variable name declared in the parent function, init().
+
+## Strict Mode
+
+Strict mode makes several changes to normal JavaScript semantics:
+
+1. Eliminates some JavaScript silent errors by changing them to throw errors.
+2. Fixes mistakes that make it difficult for JavaScript engines to perform optimizations: strict mode code can sometimes be made to run faster than identical code that's not strict mode.
+3. Prohibits some syntax likely to be defined in future versions of ECMAScript.
+
+- Invoking strict mode
+Strict mode applies to entire scripts or to individual functions. It doesn't apply to block statements
+
+- Strict mode for scripts
+```
+// Whole-script strict mode syntax
+"use strict";
+const v = "Hi! I'm a strict mode script!";
+```
+- Strict mode for functions
+```
+function myStrictFunction() {
+  // Function-level strict mode syntax
+  "use strict";
+  function nested() {
+    return "And so am I!";
+  }
+  return `Hi! I'm a strict mode function! ${nested()}`;
+}
+function myNotStrictFunction() {
+  return "I'm not strict.";
+}
+```
+- Changes in strict mode
+1. changes converting mistakes into errors (as syntax errors or at runtime)
+2. changes simplifying how variable references are resolved
+3. changes simplifying eval and arguments
+4. changes making it easier to write "secure" JavaScript
+5. changes anticipating future ECMAScript evolution.
+
+- Converting mistakes into errors
+1. Strict mode changes some previously-accepted mistakes into errors. JavaScript was designed to be easy for novice developers, and sometimes it gives operations which should be errors non-error semantics.
+2. Sometimes this fixes the immediate problem, but sometimes this creates worse problems in the future. Strict mode treats these mistakes as errors so that they're discovered and promptly fixed.
+
+- Assigning to undeclared variables
+```
+"use strict";
+let mistypeVariable;
+
+// Assuming no global variable mistypeVarible exists
+// this line throws a ReferenceError due to the
+// misspelling of "mistypeVariable" (lack of an "a")
+mistypeVarible = 17;
+```
+
