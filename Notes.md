@@ -470,9 +470,12 @@ The process is called “bubbling”, because events “bubble” from the inner
 1. The JSON format is syntactically similar to the code for creating JavaScript objects. Because of this, a JavaScript program can easily convert JSON data into JavaScript objects.
 2. Since the format is text only, JSON data can easily be sent between computers, and used by any programming language.
 3. JavaScript has a built in function for converting JSON strings into JavaScript objects:
-  
+```
   JSON.parse()
+```
 4. JavaScript also has a built in function for converting an object into a JSON string:
-  
+  ```
   JSON.stringify()
+  ```
+  
   
