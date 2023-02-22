@@ -139,3 +139,16 @@ It's like doing this: `const count = {current: 0}`. We can access the count by u
 - What does useReducer do?
 1. The useReducer Hook is used to store and update states, just like the useState Hook. It accepts a reducer function as its first parameter and the initial state as the second.
 2. useReducer returns an array that holds the current state value and a dispatch function to which you can pass an action and later invoke it. While this is similar to the pattern Redux uses, there are a few differences.
+
+## what is reducer
+1. In redux, the reducers are the pure functions that contain the logic and calculation that needed to be performed on the state. 
+2. These functions accept the initial state of the state being used and the action type. It updates the state and responds with the new state.
+
+## What are actions
+ Actions are JavaScript object that contains information. Actions are the only source of information for the store.
+ ```
+ const Actions = {
+ type: '',
+ payload: ''
+}
+```
