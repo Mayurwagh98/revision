@@ -31,4 +31,21 @@ router.get("/products", async(req, res) =>{
     
 })
 
+router.put("/products/:id", async(req, res) =>{
+    
+    let product = await Products.findById(req.params.id)
+
+    product = await Products.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        useFindAndModify: false,
+        runValidators: true
+    })
+
+    res.status(200).json({
+        success: true,
+        product
+    })
+
+})
+
 module.exports = router
