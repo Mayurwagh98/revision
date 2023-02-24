@@ -1,6 +1,7 @@
 const router = require("express").Router()
 const Products = require("../models/products.model")
 
+// posting
 router.post("/register", async(req, res) =>{
     
     try {
@@ -17,6 +18,7 @@ router.post("/register", async(req, res) =>{
     }
 })
 
+// getting 
 router.get("/products", async(req, res) =>{
 
     try {
@@ -31,9 +33,18 @@ router.get("/products", async(req, res) =>{
     
 })
 
+// update
+
 router.put("/products/:id", async(req, res) =>{
     
     let product = await Products.findById(req.params.id)
+
+    if(!product){  // if product deoesn't exists
+        return res.status(500).json({
+            success: false,
+            message: "Product Not Found"
+        })
+    }
 
     product = await Products.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
@@ -46,6 +57,26 @@ router.put("/products/:id", async(req, res) =>{
         product
     })
 
+})
+
+// deleting
+router.delete("/products/:id", async(req, res) =>{
+
+    const product = await Products.findById(req.params.id)
+
+    if(!product){  // if product deoesn't exists
+        return res.status(500).json({
+            success: false,
+            message: "Product Not Found"
+        })
+    }
+
+    await product.remove()
+
+    res.status(200).json({
+        success: true,
+        message: "Product has been deleted"
+    })
 })
 
 module.exports = router
