@@ -1,11 +1,11 @@
-const app = require("./app")
+const app = require("./app.js")
 const connectDB = require("./config/db")
 require("dotenv").config()
 
 const port = process.env.PORT || 8000
+const host = "localhost"
 
-app.listen(port, () =>{
+app.listen(port, () => {
     connectDB()
-
-    console.log(`Working on http://localhost:${port}`)
+       console.log(`listening to port http://${host}:${port}`);
 })
