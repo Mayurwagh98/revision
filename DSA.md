@@ -92,6 +92,7 @@ function isPairSum(A, N, X)
 ```
 ## Quick Sort
 https://www.geeksforgeeks.org/quick-sort/
+https://www.doabledanny.com/quick-sort-in-javascript
 ```function QuicklySort(N, arr){
     let bag = ""
     for(i=0; i<arr.length; i++){
@@ -224,5 +225,49 @@ function mergeSort(arr) {
 function result(arr) {
     var res = mergeSort(arr);
     console.log(res.join(" "));
+}
+```
+## Recursion
+The act of a function calling itself, recursion is used to solve problems that contain smaller sub-problems.
+https://developer.mozilla.org/en-US/docs/Glossary/Recursion
+```
+Input - 5
+Outout - 120
+```
+```
+function numFactorial(num){
+   
+  if(num == 0 || num == 1){
+      
+      return 1
+  }
+  else{
+      
+      return num * numFactorial(num - 1)
+  }
+
+}
+```
+## Detect Palindrome
+```
+input - 1221
+output - Yes
+```
+```
+function Palindrome(num){
+    let bag = num
+    let z = 0;
+    while(num != 0){
+        var rem = num % 10;
+        z = z * 10 + rem;
+        num = Math.floor(num / 10)
+    }
+    // console.log(z)
+    if(z == bag){
+        console.log("Yes");
+    }
+    else{
+        console.log("No")
+    }
 }
 ```
