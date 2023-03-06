@@ -50,12 +50,12 @@ const loginUser = async(req, res) =>{
             res.status(400).json({message: "Wrong Credentials"})
         }
         
-        // const token = jwt.sign({email: userExists.email}, "hash")
+        const token = jwt.sign({email: userExists.email}, "hash")
         
         // seding user data, except password
         const {password, ...remainingDetails} = userExists._doc
         
-        res.status(200).json(remainingDetails)
+        res.status(200).json({...remainingDetails, token: token})
 
     } catch (error) {
         res.status(500).json({message: error.message})
@@ -63,6 +63,4 @@ const loginUser = async(req, res) =>{
 
 }
 
-
-module.exports = loginUser
-module.exports = signupUser
+module.exports = {signupUser, loginUser}
