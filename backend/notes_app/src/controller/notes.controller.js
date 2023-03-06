@@ -37,7 +37,7 @@ const updateNotes = async(req,res) =>{
 
     // finding the note which was created by that specific user
     const note = await Notes.findOne({_id:noteID})
-    console.log(note)
+    // console.log(note)
 
     try {
         // let oldNote = await Notes.findOne({noteID})
@@ -67,17 +67,23 @@ const deleteNote = async(req, res) =>{
 
     try {
         
-        let noteId = req.params.id
+        let noteID = req.params.id
+        const userID = req.body.userID 
+        const note = await Notes.findOne({_id:noteID})
         
-        let oldNote = await Notes.findOne({noteId})
     
-        if(!oldNote){
-            res.status(404).json({message: "Not not found"})
+        if(!note){
+            res.status(404).json({message: "Note not found"})
         }
-    
-        await Notes.findByIdAndDelete({_id: noteId})
-    
-        res.status(200).json({message: "Note deleted"})
+        else if(userID !== note.userID){
+            res.status(404).send("Not authorised")
+        }
+        else{
+
+            await Notes.findByIdAndDelete({_id: noteID})
+        
+            res.status(200).json({message: "Note deleted"})
+        }
     } catch (error) {
         res.status(500).json({message: error.message})
     }
