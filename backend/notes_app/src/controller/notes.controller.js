@@ -11,10 +11,6 @@ let getNotes = async(req, res) =>{
 
 let createNotes = async(req, res) =>{
 
-    // get token from header
-    // verify the token using jwt
-
-
     try {
         
         const newNote = await Notes.create(req.body)
@@ -31,19 +27,34 @@ let createNotes = async(req, res) =>{
 // update
 const updateNotes = async(req,res) =>{
     
-    let noteId = req.params.id
+    // let noteId = req.params.id
     // let {title, category} = req.body
-    
+
+    const noteID = req.params.id // getting the note id from params
+    // console.log(noteID)
+    // getting the user id from the body of the note, which we passed while creating the note
+    const userID = req.body.userID 
+
+    // finding the note which was created by that specific user
+    const note = await Notes.findOne({_id:noteID})
+    console.log(note)
+
     try {
-        let oldNote = await Notes.findOne({noteId})
+        // let oldNote = await Notes.findOne({noteID})
     
-        if(!noteId){
-            res.status(404).json({message: "Not not found"})
+        if(userID !== note.userID){
+            res.send("Not authorised")
         }
 
-        await Notes.findByIdAndUpdate({_id: noteId}, req.body)
-    
-        res.status(200).json({message: "Not updated"})
+        else if(!noteID){
+            res.status(404).json({message: "Not not found"})
+        }
+        else{
+
+            await Notes.findByIdAndUpdate({_id: noteID}, req.body)
+        
+            res.status(200).json({message: "Not updated"})
+        }
         
     } catch (error) {
         res.status(500).json({message: error.message})
