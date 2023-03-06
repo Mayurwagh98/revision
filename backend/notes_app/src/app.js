@@ -1,15 +1,25 @@
 const express = require("express")
+// const authenticate = require("./middleware/auth")
 const app = express()
-const cors = require("cors")
+
 
 app.use(express.json())
-app.use(cors())
 
-// const loginRoute = require("./routes/login.router")
-// const signupRoute = require("./routes/signup.router")
 
-app.use("/api")
-app.use("/api")
+const Notes = require("./routes/notes.routes")
+const Create_notes = require("./routes/notes.routes")
+const Update_notes = require("./routes/notes.routes")
+const Delete_notes = require("./routes/notes.routes")
+const User_signup = require("./routes/user.routes")
+const User_login = require("./routes/user.routes")
+
+app.use("/api", User_signup)
+app.use("/api", User_login)
+app.use("/api", Notes)
+app.use("/api", Create_notes) 
+app.use("/api", Update_notes)
+app.use("/api", Delete_notes)
+
 
 
 module.exports = app

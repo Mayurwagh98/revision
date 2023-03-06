@@ -2,6 +2,10 @@ const Notes = require("../models/notes.models")
 
 let createNotes = async(req, res) =>{
 
+    // get token from header
+    // verify the token using jwt
+
+
     try {
         
         const newNote = await Notes.create(req.body)

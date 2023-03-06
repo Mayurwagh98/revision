@@ -21,7 +21,7 @@ const signupUser = async(req, res) =>{
 
         const token = jwt.sign({email: newUser.email}, "hash")
 
-        res.status(200).json({newUser,token,message:"Sign up success"})
+        res.status(200).json({newUser,token, message:"Sign up success"})
 
 
     } catch (error) {
@@ -64,5 +64,5 @@ const loginUser = async(req, res) =>{
 }
 
 
-module.exports = signupUser
 module.exports = loginUser
+module.exports = signupUser
