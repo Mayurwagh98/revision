@@ -32,9 +32,8 @@ let createNotes = async(req, res) =>{
 const updateNotes = async(req,res) =>{
     
     let noteId = req.params.id
-    let {title, category} = req.body
-
-
+    // let {title, category} = req.body
+    
     try {
         let oldNote = await Notes.findOne({noteId})
     
