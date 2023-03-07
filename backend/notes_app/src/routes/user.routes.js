@@ -1,6 +1,6 @@
 const userRouter = require("express").Router()
-const loginUser = require("../controller/user.controller")
-const signupUser = require("../controller/user.controller")
+const {loginUser} = require("../controller/user.controller")
+const {signupUser} = require("../controller/user.controller")
 const router = require("./notes.routes")
 
 

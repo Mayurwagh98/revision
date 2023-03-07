@@ -1,11 +1,17 @@
 const Notes = require("../models/notes.models")
 
 let getNotes = async(req, res) =>{
-
+    
+    // let searchQuery = {}
+    // let {title} = req.query
+    // if(title){
+    //     searchQuery.title = {$regex: title, $options:"i"}
+    // }
     const notes = await Notes.find()
 
     res.send(notes)
 }
+
 
 // create
 
@@ -90,4 +96,4 @@ const deleteNote = async(req, res) =>{
 
 }
 
-module.exports = {getNotes, createNotes, updateNotes, deleteNote}
+module.exports = {getNotes,createNotes, updateNotes, deleteNote}

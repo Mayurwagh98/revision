@@ -19,7 +19,7 @@ const signupUser = async(req, res) =>{
 
         const newUser = await User.create({name, email, password: hashedPassword, age})
 
-        const token = jwt.sign({email: newUser.email, id: newUser._id}, "hash")
+        const token = jwt.sign({email: newUser.email}, "hash")
 
         res.status(200).json({newUser,token, message:"Sign up success"})
 

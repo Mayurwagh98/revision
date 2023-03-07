@@ -1,15 +1,14 @@
 const router = require("express").Router()
-const getNotes = require("../controller/Get_notes.controller")
-const createNote = require("../controller/Create_notes.controller")
-const updateNotes = require("../controller/Update_notes.controller")
-const deleteNote = require("../controller/Delete_notes.controller")
+const {getNotes,createNotes, updateNotes, deleteNote} = require("../controller/notes.controller")
+const authorize = require("../middleware/auth")
 
-router.get("/notes", getNotes)
 
-router.post("/create", createNote)
+router.get("/notes", authorize ,getNotes)
 
-router.patch("/update/:id", updateNotes)
+router.post("/notes/create",authorize ,createNotes)
 
-router.delete("/delete/:id", deleteNote)
+router.patch("/notes/update/:id", authorize,updateNotes)
+
+router.delete("/notes/delete/:id", authorize,deleteNote)
 
 module.exports = router
