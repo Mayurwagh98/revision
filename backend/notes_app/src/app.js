@@ -1,12 +1,11 @@
 const express = require("express")
-const authenticate = require("./middleware/auth")
 const app = express()
-
 
 app.use(express.json())
 
 
 const Notes = require("./routes/notes.routes")
+
 const Create_notes = require("./routes/notes.routes")
 const Update_notes = require("./routes/notes.routes")
 const Delete_notes = require("./routes/notes.routes")
@@ -15,7 +14,6 @@ const User_login = require("./routes/user.routes")
 
 app.use("/api", User_signup)
 app.use("/api", User_login)
-app.use(authenticate)
 app.use("/api", Notes)
 app.use("/api", Create_notes) 
 app.use("/api", Update_notes)
