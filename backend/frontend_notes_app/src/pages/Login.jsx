@@ -11,7 +11,8 @@ const Login = () => {
     await axios
       .post("http://localhost:8080/api/login", loginData)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
+        localStorage.setItem("user", JSON.stringify(res.data));
       })
       .catch((e) => console.log(e.message));
   };

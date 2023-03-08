@@ -5,7 +5,7 @@ const CreateNotes = () => {
   let [text, setText] = useState({
     title: "",
     note: "",
-    category: [],
+    category: []
   });
 
   let token = localStorage.getItem("token");
@@ -27,7 +27,7 @@ const CreateNotes = () => {
     // console.log(val);
     let conifg = {
       headers: {
-        authorization: `Bearer ${token}`,
+        authorization: `Bearer ${user.token}`,
       },
     };
     await axios
