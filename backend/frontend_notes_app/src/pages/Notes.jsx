@@ -53,15 +53,7 @@ const Notes = () => {
   //     .then((res) => console.log(res.data))
   //     .catch((e) => console.log(e.message));
   // };
-
-  let togglePopup = (item) => {
-    if (item) {
-      // console.log(item);
-
-      document.querySelector(".userId").innerText = "UserID: " + item.userID;
-      document.querySelector(".title").innerText = "Title: " + item.title;
-      document.querySelector(".note").innerText = "Note: " + item.note;
-    }
+  let togglePopup = () => {
     document.getElementById("popup-1").classList.toggle("active");
   };
   return (
@@ -81,7 +73,7 @@ const Notes = () => {
             <button onClick={() => handleDelete(item)}>Delete</button>
             {item.userID == user.userID ? (
               <button onClick={() => togglePopup(item)}>
-                Edit<New_modal toggle={togglePopup}/>
+                Edit <New_modal toggle={togglePopup} item={item} />
               </button>
             ) : null}
             <hr />
