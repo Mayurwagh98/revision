@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { New_modal } from "../components/New_modal";
 
 const Notes = () => {
   let [notes, setNotes] = useState([]);
@@ -45,14 +46,24 @@ const Notes = () => {
   };
 
   // update
-  let handleEdit = async (item) => {
-    // let { _id } = item;
-    await axios
-      .patch(`http://localhost:8080/api/update/${item._id}`)
-      .then((res) => console.log(res.data))
-      .catch((e) => console.log(e.message));
-  };
+  // let handleEdit = async (item) => {
+  //   // let { _id } = item;
+  //   await axios
+  //     .patch(`http://localhost:8080/api/update/${item._id}`)
+  //     .then((res) => console.log(res.data))
+  //     .catch((e) => console.log(e.message));
+  // };
 
+  let togglePopup = (item) => {
+    if (item) {
+      // console.log(item);
+
+      document.querySelector(".userId").innerText = "UserID: " + item.userID;
+      document.querySelector(".title").innerText = "Title: " + item.title;
+      document.querySelector(".note").innerText = "Note: " + item.note;
+    }
+    document.getElementById("popup-1").classList.toggle("active");
+  };
   return (
     <div>
       <h1>Notes</h1>
@@ -68,7 +79,11 @@ const Notes = () => {
               <p key={ind}>Category:- {el}</p>
             ))}
             <button onClick={() => handleDelete(item)}>Delete</button>
-            {item.userID == user.userID ? <button onClick={() => handleEdit(item)}>Edit</button>: null}
+            {item.userID == user.userID ? (
+              <button onClick={() => togglePopup(item)}>
+                Edit<New_modal toggle={togglePopup}/>
+              </button>
+            ) : null}
             <hr />
           </div>
         );
