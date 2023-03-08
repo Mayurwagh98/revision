@@ -4,7 +4,6 @@ import axios from "axios";
 const Notes = () => {
   let [notes, setNotes] = useState([]);
   let token = localStorage.getItem("token");
-  //   console.log(token);
 
   let getNotes = async () => {
     let config = {
@@ -26,6 +25,23 @@ const Notes = () => {
     getNotes();
   }, []);
 
+  let handleDelete = async (item) => {
+    try {
+      let config = {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      };
+
+      await axios.delete(
+        `http://localhost:8080/api/notes/delete/${item._id}`,
+        config
+      );
+    } catch (error) {
+      alert(error.response?.data || error.message);
+    }
+  };
+
   return (
     <div>
       <h1>Notes</h1>
@@ -39,6 +55,7 @@ const Notes = () => {
             {item.category.map((el, ind) => (
               <p key={ind}>Category:- {el}</p>
             ))}
+            <button onClick={() => handleDelete(item)}>Delete</button>
             <hr />
           </div>
         );
