@@ -41,7 +41,7 @@
 }
 
 .popup .content {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%)scale(0);
@@ -55,7 +55,7 @@
 }
 
 .popup .close-btn {
-    position: absolute;
+    position: fixed;
     right: 20px;
     top: 20px;
     width: 30px;
