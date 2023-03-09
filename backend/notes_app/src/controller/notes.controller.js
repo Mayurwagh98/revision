@@ -59,7 +59,7 @@ const updateNotes = async(req,res) =>{
 
             await Notes.findByIdAndUpdate({_id: noteID}, req.body)
         
-            res.status(200).json({message: "Not updated"})
+            res.status(200).json({message: "Note updated"})
         }
         
     } catch (error) {

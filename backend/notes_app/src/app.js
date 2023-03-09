@@ -1,8 +1,9 @@
 const express = require("express")
 const app = express()
+const cors = require("cors")
 
 app.use(express.json())
-
+app.use(cors())
 
 const Notes = require("./routes/notes.routes")
 

@@ -51,14 +51,14 @@ const loginUser = async(req, res) =>{
             res.status(400).json({message: "Wrong Credentials"})
         }
         
-        const token = jwt.sign({"userID": userExists._id}, "hash")
+        const token = jwt.sign({userID: userExists._id}, "hash")
         
         // seding user data, except password
         // const {password, ...remainingDetails} = userExists._doc
         
         // res.status(200).json({...remainingDetails, token: token})
 
-        res.status(200).send({message:"login success", token: token})
+        res.status(200).send({message:"login success", token: token,userID: userExists._id})
 
     } catch (error) {
         res.status(500).json({message: error.message})
