@@ -8,7 +8,7 @@ const CreateNotes = () => {
     category: []
   });
 
-  let token = localStorage.getItem("token");
+  let user = JSON.parse(localStorage.getItem("user"));
 
   let handleNotes = (event) => {
     let { name, value } = event.target;

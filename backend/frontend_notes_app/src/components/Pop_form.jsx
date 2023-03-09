@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./New_modal.css";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 import axios from "axios";
 
-const FormModal = ({ item }) => {
+const New_modal = ({ item }) => {
   let [updateText, setUpdateText] = useState({
     title: "",
     note: "",
@@ -24,8 +26,7 @@ const FormModal = ({ item }) => {
         config
       )
       .then((res) => {
-        // console.log(res.data);
-        alert(res.data.message);
+        console.log(res.data);
       })
       .catch((e) => console.log(e.message));
   };
@@ -39,21 +40,10 @@ const FormModal = ({ item }) => {
     });
   };
 
-  function openForm() {
-    setUpdateText(item);
-    document.getElementById("myForm").style.display = "block";
-  }
-
-  function closeForm() {
-    document.getElementById("myForm").style.display = "none";
-  }
   return (
-    <div className="popup">
-      <button className="open-button" onClick={openForm}>
-        Edit
-      </button>
-      <div className="form-popup" id="myForm">
-        <form className="form-container" onSubmit={(e) => e.preventDefault()}>
+    <>
+      <Popup trigger={<button> Edit</button>} position="top">
+        <form onSubmit={(e) => e.preventDefault()}>
           <input
             type="text"
             placeholder="title"
@@ -61,7 +51,6 @@ const FormModal = ({ item }) => {
             value={updateText.title}
             onChange={handleChange}
           />
-
           <input
             type="text"
             placeholder="note"
@@ -70,16 +59,11 @@ const FormModal = ({ item }) => {
             onChange={handleChange}
           />
 
-          <button type="submit" className="btn" onClick={updateNote}>
-            Update Note
-          </button>
-          <button type="button" className="btn cancel" onClick={closeForm}>
-            Close
-          </button>
+          <input type="submit" value="Update Note" onClick={updateNote} />
         </form>
-      </div>
-    </div>
+      </Popup>
+    </>
   );
 };
 
-export { FormModal };
+export { New_modal };
