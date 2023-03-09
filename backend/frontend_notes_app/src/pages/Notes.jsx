@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { New_modal } from "../components/New_modal";
+import { New_modal } from "../components/Pop_form";
+import { FormModal } from "../components/New_modal";
 
 const Notes = () => {
   let [notes, setNotes] = useState([]);
@@ -45,17 +46,6 @@ const Notes = () => {
     }
   };
 
-  // update
-  // let handleEdit = async (item) => {
-  //   // let { _id } = item;
-  //   await axios
-  //     .patch(`http://localhost:8080/api/update/${item._id}`)
-  //     .then((res) => console.log(res.data))
-  //     .catch((e) => console.log(e.message));
-  // };
-  let togglePopup = () => {
-    document.getElementById("popup-1").classList.toggle("active");
-  };
   return (
     <div>
       <h1>Notes</h1>
@@ -73,7 +63,8 @@ const Notes = () => {
             <button onClick={() => handleDelete(item)}>Delete</button>
             {item.userID == user.userID ? (
               // <button onClick={() => togglePopup(item)}>
-                <New_modal toggle={togglePopup} item={item} />
+                // <New_modal item={item} />
+                <FormModal item = {item}/>
               // </button>
             ) : null}
             <hr />
