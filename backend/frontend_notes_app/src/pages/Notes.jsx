@@ -72,9 +72,9 @@ const Notes = () => {
             ))}
             <button onClick={() => handleDelete(item)}>Delete</button>
             {item.userID == user.userID ? (
-              <button onClick={() => togglePopup(item)}>
-                Edit <New_modal toggle={togglePopup} item={item} />
-              </button>
+              // <button onClick={() => togglePopup(item)}>
+                <New_modal toggle={togglePopup} item={item} />
+              // </button>
             ) : null}
             <hr />
           </div>
