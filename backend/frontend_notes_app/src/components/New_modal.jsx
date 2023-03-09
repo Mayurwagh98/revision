@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import "./New_modal.css";
-import Popup from "reactjs-popup";
-import "reactjs-popup/dist/index.css";
-import axios from "axios"
+import axios from "axios";
 
-const New_modal = ({item}) => {
+const FormModal = ({ item }) => {
   let [updateText, setUpdateText] = useState({
     title: "",
     note: "",
@@ -20,7 +18,11 @@ const New_modal = ({item}) => {
     };
 
     await axios
-      .patch(`http://localhost:8080/api/notes/update/${item._id}`, updateText, config)
+      .patch(
+        `http://localhost:8080/api/notes/update/${item._id}`,
+        updateText,
+        config
+      )
       .then((res) => {
         console.log(res.data);
       })
@@ -36,10 +38,20 @@ const New_modal = ({item}) => {
     });
   };
 
+  function openForm() {
+    document.getElementById("myForm").style.display = "block";
+  }
+
+  function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+  }
   return (
-    <>
-      <Popup trigger={<button> Edit</button>} position="top">
-        <form onSubmit={(e) => e.preventDefault()}>
+    <div>
+      <button className="open-button" onClick={openForm}>
+        Edit
+      </button>
+      <div className="form-popup" id="myForm">
+        <form className="form-container" onSubmit={(e) => e.preventDefault()}>
           <input
             type="text"
             placeholder="title"
@@ -47,6 +59,7 @@ const New_modal = ({item}) => {
             value={updateText.title}
             onChange={handleChange}
           />
+
           <input
             type="text"
             placeholder="note"
@@ -55,24 +68,16 @@ const New_modal = ({item}) => {
             onChange={handleChange}
           />
 
-          <input type="submit" value="Update Note" onClick={updateNote} />
+          <button type="submit" className="btn" onClick={updateNote}>
+            Update Note
+          </button>
+          <button type="button" className="btn cancel" onClick={closeForm}>
+            Close
+          </button>
         </form>
-      </Popup>
-
-      {/* <div className="popup" id="popup-1">
-        <div className="overlay"></div>
-        <div className="content">
-          <div className="close-btn" onClick={togglePopup}>
-            &times;
-          </div>
-          <p className="userId">UserID:- {item.userID}</p>
-          <p className="title">Title:- {item.title}</p>
-          <p className="note">Note:- {item.note}</p>
-          <p className="category"></p>
-        </div>
-      </div> */}
-    </>
+      </div>
+    </div>
   );
 };
 
-export { New_modal };
+export { FormModal };
