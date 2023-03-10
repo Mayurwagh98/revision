@@ -28,4 +28,29 @@ let Signup = async(req, res) =>{
 
 }
 
-module.exports = {Signup}
+let Login = async(req, res) =>{
+
+    let {email, password} = req.body
+
+    let user = await User.findOne({email})
+    try {
+
+        if(!user){
+            res.status(400).send({message: "User doesn't exists"})
+        }
+
+        let matchPassword = await bcrypt.compare(password, user.password)
+
+        if(!matchPassword){
+            res.status(404).send({message: "Wrong Credentials"})
+        }
+
+        const token = jwt.sign({email: user.email},'blah')
+
+        res.status(200).send({message: "Login Successful!", token: token})
+    } catch (error) {
+        res.status(500).send({message: error. message})
+    }
+}
+
+module.exports = {Signup, Login}
