@@ -15,4 +15,26 @@ const getBlogs = async(req, res) =>{
     }
 }
 
-module.exports = {getBlogs}
+const postBlogs = async(req, res) =>{
+
+    let {title, blog_content, category} = req.body
+
+    try {
+        
+        let existingBlog = await Blogs.findOne({title}) 
+
+        if(existingBlog){
+            res.status(404).send({message: "This Blogs already exists"})
+        }
+
+        const newBlog = await Blogs.create({title, blog_content, category})
+        newBlog.save()
+
+        res.status(200).send({message: "Blog Posted"})
+
+    } catch (error) {
+        
+    }
+}
+
+module.exports = {getBlogs, postBlogs}
