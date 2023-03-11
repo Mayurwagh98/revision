@@ -1,8 +1,7 @@
 const Blogs = require("../models/Blogs.model")
 
+// -------- Get blogs -------------------
 const getBlogs = async(req, res) =>{
-
-    // let {title} = req.body
 
     try {
         
@@ -14,6 +13,8 @@ const getBlogs = async(req, res) =>{
         console.log({message: error.message})
     }
 }
+
+// -------- Create blogs -------------------
 
 const postBlogs = async(req, res) =>{
 
@@ -33,8 +34,33 @@ const postBlogs = async(req, res) =>{
         res.status(200).send({message: "Blog Posted"})
 
     } catch (error) {
-        
+        res.status(500).send({message: error.message})
     }
 }
 
-module.exports = {getBlogs, postBlogs}
+// -------- Update blogs -------------------
+
+const updateBlogs = async(req, res) =>{
+
+    let blogId = req.params.id
+
+    let existingBlog = await Blogs.findOne({blogId})
+
+    try {
+        
+        if(!existingBlog){
+            res.status(404).send({message: "Blogs not found"})
+        }
+        else{
+            await Blogs.findByIdAndUpdate({_id: blogId}, req.body)
+            res.status(200).send({message: "Blog Updated"})
+        }
+
+    } catch (error) {
+        
+        res.status(500).send({message: error.message})
+    }
+}
+
+
+module.exports = {getBlogs, postBlogs, updateBlogs}
