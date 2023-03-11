@@ -7,6 +7,7 @@ const Login = require("./routes/User.route")
 const GetBlogs = require("./routes/Blogs.route")
 const PostBlogs = require("./routes/Blogs.route")
 const UpdateBlogs = require("./routes/Blogs.route")
+const DeleteBlogs = require("./routes/Blogs.route")
 
 app.use(express.json())
 // app.use(cors())
@@ -16,5 +17,6 @@ app.use("/api", Login)
 app.use("/api", GetBlogs)
 app.use("/api", PostBlogs)
 app.use("/api", UpdateBlogs)
+app.use("/api", DeleteBlogs)
 
 module.exports = app
