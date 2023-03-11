@@ -2,10 +2,14 @@ const Blogs = require("../models/Blogs.model")
 
 // -------- Get blogs -------------------
 const getBlogs = async(req, res) =>{
-
+ let searchQuery = {}
+    let {title} = req.query
+    if(title){
+        searchQuery.title = {$regex: title}
+    }
     try {
         
-        const blogs = await Blogs.find()
+        const blogs = await Blogs.find(searchQuery)
       
         res.status(200).send(blogs)
 
@@ -20,18 +24,19 @@ const postBlogs = async(req, res) =>{
 
     let {title, blog_content, category} = req.body
 
+    let existingBlog = await Blogs.findOne({title}) 
     try {
         
-        let existingBlog = await Blogs.findOne({title}) 
-
         if(existingBlog){
-            res.status(404).send({message: "This Blogs already exists"})
+            res.status(404).send({message: "Blog with this title already exists"})
         }
+        else{
 
-        const newBlog = await Blogs.create({title, blog_content, category})
-        newBlog.save()
+            const newBlog = await Blogs.create({title, blog_content, category})
+            res.status(200).send({message: "Blog Posted"})
+        }
+        // newBlog.save()
 
-        res.status(200).send({message: "Blog Posted"})
 
     } catch (error) {
         res.status(500).send({message: error.message})
@@ -85,5 +90,31 @@ const deleteBlogs = async(req, res) =>{
     }
 }
 
+// -------- Search blogs -------------------
 
-module.exports = {getBlogs, postBlogs, updateBlogs, deleteBlogs}
+const searchBlogs = async(req, res) =>{
+    // let {title} = req.body.query
+    const query = req.params.name
+
+    let blogSearch = await Blogs.find(query)
+
+    try {
+        
+        if(!blogSearch){
+
+            res.status(404).send({message: "Blog not found"})
+        }
+        else{
+
+            await Blogs.find(query)
+            res.status(200).send(blogSearch)
+        }
+
+
+    } catch (error) {
+        res.status(500).send({message: error.message})   
+    }
+}
+
+
+module.exports = {getBlogs, postBlogs, updateBlogs, deleteBlogs, searchBlogs}
