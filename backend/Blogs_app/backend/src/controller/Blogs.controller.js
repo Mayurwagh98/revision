@@ -2,13 +2,15 @@ const Blogs = require("../models/Blogs.model")
 
 // -------- Get blogs -------------------
 const getBlogs = async(req, res) =>{
- let searchQuery = {}
-    let {title} = req.query
+    let searchQuery = {}
+    let {title, category} = req.query
     if(title){
         searchQuery.title = {$regex: title}
     }
+    else if(category){
+        searchQuery.category = {$regex: category}
+    }
     try {
-        
         const blogs = await Blogs.find(searchQuery)
       
         res.status(200).send(blogs)
