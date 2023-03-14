@@ -21,7 +21,7 @@ let Signup = async(req, res) =>{
     
         const token = jwt.sign({email: newUser.email}, 'blah')
     
-        res.status(200).send({message: "User registered", user: newUser})
+        res.status(200).send({message: "User registered", newUser, token})
     } catch (error) {
         console.log(error.message)   
     }
@@ -39,15 +39,16 @@ let Login = async(req, res) =>{
             res.status(400).send({message: "User doesn't exists"})
         }
 
-        let matchPassword = await bcrypt.compare(password, user.password)
+        const matchPassword = await bcrypt.compare(password, user.password)
 
         if(!matchPassword){
             res.status(404).send({message: "Wrong Credentials"})
         }
 
-        const token = jwt.sign({email: user.email},'blah')
+        const token = jwt.sign({userID: user._id},'blah')
 
         res.status(200).send({message: "Login Successful!", token: token})
+        
     } catch (error) {
         res.status(500).send({message: error. message})
     }
