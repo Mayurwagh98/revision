@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+
 
 const Blogs = () => {
-  let { token, isLoading } = useSelector((store) => store);
-  console.log(token);
-
   let [blogs, setBlogs] = useState([]);
-
-  let ls = localStorage.getItem("token");
-  // console.log(ls);
+  // let { token, isLoading } = useSelector((store) => store);
+  // console.log(token);
+  let cookieToken = Cookies.get("token")
+  let navigate = useNavigate()
+ 
 
   let getBlogs = async () => {
     let config = {
       headers: {
-        authorization: `Bearer ${token}`,
+        authorization: `Bearer ${cookieToken}`,
       },
     };
 
@@ -34,6 +36,7 @@ const Blogs = () => {
   return (
     <div>
       <h1>Blogs</h1>
+      <button onClick={() => navigate('/createblogs')}>Create Blogs</button>
       <div className="main_blogs_div">
         {blogs &&
           blogs.map((item, index) => {
