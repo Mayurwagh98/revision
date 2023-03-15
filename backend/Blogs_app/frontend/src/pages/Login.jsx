@@ -1,15 +1,38 @@
 import React, { useState } from "react";
 import { loginUserAction } from "../Redux/action";
-import {useDispatch} from "react-redux"
-import {useNavigate} from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   let [loginUserData, setLoginUserData] = useState({
     email: "",
     password: "",
   });
-  let dispatch = useDispatch()
-  // let navigate = useNavigate()
+  let dispatch = useDispatch();
+  let navigate = useNavigate();
+  // let token = useSelector((store) => store);
+  // console.log(token);
+
+  // let loginUser = async () => {
+  //   await axios
+  //     .post("http://localhost:8000/api/login", loginUserData)
+  //     .then((res) => {
+  //       dispatch(getUser(res.data.token));
+  //       // console.log(res.data.token);
+  //       // localStorage.setItem("token", (res.data.token))
+  //     })
+  //     .catch((e) => {
+  //       console.log(e.message);
+  //     });
+  // };
+  let loginUser = () => {
+    dispatch(loginUserAction(loginUserData));
+    setTimeout(() => {
+      navigate("/blogs");
+    }, 1500);
+  };
+
   let handleLogin = (event) => {
     let { name, value } = event.target;
 
@@ -17,11 +40,6 @@ const Login = () => {
       ...loginUserData,
       [name]: value,
     });
-  };
-
-  let loginUser = () => {
-   dispatch(loginUserAction(loginUserData))
-  //  navigate("/blogs")
   };
 
   return (
