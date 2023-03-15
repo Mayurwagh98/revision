@@ -1,5 +1,6 @@
 import * as types from "./actionTypes";
 import axios from "axios";
+import Cookie from "js-cookie"
 
 let get_login_request = () => {
   return {
@@ -21,6 +22,7 @@ let get_login_failure = () => {
   };
 };
 
+  
 let loginUserAction = (loginUserData) => async (dispatch) => {
   dispatch(get_login_request());
   await axios
@@ -28,7 +30,8 @@ let loginUserAction = (loginUserData) => async (dispatch) => {
     .then((res) => {
       dispatch(get_login_success(res.data.token));
       // console.log(res.data.token);
-      localStorage.setItem("token", res.data.token);
+      Cookie.set("token", res.data.token)
+      // localStorage.setItem("token", res.data.token);
     })
     .catch((e) => {
       dispatch(get_login_failure());
