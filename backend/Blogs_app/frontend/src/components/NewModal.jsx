@@ -1,9 +1,11 @@
-import { Button, Modal } from "antd";
+import { Button, Modal, Tooltip, Input } from "antd";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { EditFilled } from "@ant-design/icons";
+import "./NewModal.css";
 
-const NewModal = ({item}) => {
+const NewModal = ({ item }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   let [updateText, setUpdateText] = useState({
     title: "",
@@ -12,7 +14,7 @@ const NewModal = ({item}) => {
   });
 
   let cookieToken = Cookies.get("token");
-
+  const { TextArea } = Input;
   let updateNote = async () => {
     let config = {
       headers: {
@@ -42,10 +44,10 @@ const NewModal = ({item}) => {
     });
   };
   const showModal = () => {
-    setUpdateText(item)
+    setUpdateText(item);
     setIsModalOpen(true);
-};
-const handleOk = () => {
+  };
+  const handleOk = () => {
     setIsModalOpen(false);
     updateNote();
   };
@@ -54,17 +56,19 @@ const handleOk = () => {
   };
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Edit
-      </Button>
+      <Tooltip title="Edit the blog" color="red">
+        <Button type="primary" onClick={showModal}>
+          <EditFilled />
+        </Button>
+      </Tooltip>
       <Modal
         title="Update the blog"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <form className="form-container" onSubmit={(e) => e.preventDefault()}>
-          <input
+        <form onSubmit={(e) => e.preventDefault()} className="edit_form">
+          <Input
             type="text"
             placeholder="title"
             name="title"
@@ -72,14 +76,16 @@ const handleOk = () => {
             onChange={handleChange}
           />
 
-          <input
+          <TextArea
             type="text"
+            rows={4}
+            style={{backgroundColor:"#f1eaea"}}
             placeholder="blog_content"
             name="blog_content"
             value={updateText.blog_content}
             onChange={handleChange}
           />
-          <input
+          <Input
             type="text"
             placeholder="category"
             name="category"
