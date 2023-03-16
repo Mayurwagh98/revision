@@ -1,0 +1,7 @@
+.edit_form > Input, TextArea{
+    margin: 10px auto;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    background-color: #f1eaea;
+}
