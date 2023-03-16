@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import axios from "axios";
 
 const CreateBlogs = () => {
   let [text, setText] = useState({
@@ -11,12 +11,31 @@ const CreateBlogs = () => {
   let cookieToken = Cookies.get("token");
   // console.log(cookieToken)
 
-  let handleChange = () => {};
+  let handleCreate = async () => {
+    let config = {
+      headers: {
+        authorization: `Bearer ${cookieToken}`,
+      }
+    };
+
+    await axios
+      .post("https://elk-top-coat.cyclic.app/api/blogs/create", text, config)
+      .then((res) => console.log(res.data))
+      .catch((e) => console.log(e.message));
+  };
+
+  let handleChange = (event) => {
+    let { name, value } = event.target;
+    setText({
+      ...text,
+      [name]: value,
+    });
+  };
 
   return (
     <div>
       <h1>Create Blogs</h1>
-      <form>
+      <form onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"
           placeholder="Enter title of blog"
@@ -39,7 +58,7 @@ const CreateBlogs = () => {
           value={text.category}
           onChange={handleChange}
         />
-        <input type="submit" value="Post blog" />
+        <input type="submit" value="Post blog" onClick={handleCreate} />
       </form>
     </div>
   );
