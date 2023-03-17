@@ -5,9 +5,10 @@ import axios from "axios";
 import { EditFilled } from "@ant-design/icons";
 import "./NewModal.css";
 
-const NewModal = ({ item }) => {
+const NewModal = ({ item, getBlogs }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   let [updateText, setUpdateText] = useState({
+    image: "",
     title: "",
     blog_content: "",
     category: [],
@@ -15,7 +16,7 @@ const NewModal = ({ item }) => {
 
   let cookieToken = Cookies.get("token");
   const { TextArea } = Input;
-  let updateNote = async () => {
+  let updateBlog = async () => {
     let config = {
       headers: {
         authorization: `Bearer ${cookieToken}`,
@@ -31,6 +32,8 @@ const NewModal = ({ item }) => {
       .then((res) => {
         console.log(res.data);
         // alert(res.data.message);
+        // setUpdateText(res.data)
+        getBlogs()
       })
       .catch((e) => console.log(e.message));
   };
@@ -49,7 +52,7 @@ const NewModal = ({ item }) => {
   };
   const handleOk = () => {
     setIsModalOpen(false);
-    updateNote();
+    updateBlog();
   };
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -70,6 +73,13 @@ const NewModal = ({ item }) => {
         <form onSubmit={(e) => e.preventDefault()} className="edit_form">
           <Input
             type="text"
+            placeholder="image"
+            name="image"
+            value={updateText.image}
+            onChange={handleChange}
+          />
+          <Input
+            type="text"
             placeholder="title"
             name="title"
             value={updateText.title}
@@ -79,7 +89,7 @@ const NewModal = ({ item }) => {
           <TextArea
             type="text"
             rows={4}
-            style={{backgroundColor:"#f1eaea"}}
+            style={{ backgroundColor: "#f1eaea" }}
             placeholder="blog_content"
             name="blog_content"
             value={updateText.blog_content}
