@@ -80,7 +80,7 @@ const Blogs = ({ search }) => {
         <h1>Blogs</h1>
         <Tooltip title="Post Blog" color="red">
           <PostAddIcon
-            onClick={() => navigate("/createblogs")}
+            onClick={() => navigate("/blogs/createblogs")}
             style={{ fontSize: "50px", paddingTop: "10px" }}
           />
         </Tooltip>
@@ -88,7 +88,10 @@ const Blogs = ({ search }) => {
       <div className="main_blogs_div">
         {blogs?.map((item, index) => {
           return (
-            <div key={index}>
+            <div
+              key={index}
+              onClick={() => navigate(`/blogs/details/${item.title}`)}
+            >
               <img src={item.image} alt="image" />
               <h2>Title:- {item.title}</h2>
               <p>Content:- {item.blog_content}</p>
@@ -96,7 +99,9 @@ const Blogs = ({ search }) => {
                 <p key={index}>Category:- {el}</p>
               ))}
               <div className="edit_delete_div">
-                {cookieUser == item.userID ? <NewModal item={item} getBlogs={getBlogs}/> : null}
+                {cookieUser == item.userID ? (
+                  <NewModal item={item} getBlogs={getBlogs} />
+                ) : null}
                 {cookieUser == item.userID ? (
                   <Tooltip title="Delete" color="blue">
                     <Button
