@@ -8,12 +8,15 @@ import { DeleteFilled } from "@ant-design/icons";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import { NewModal } from "../components/NewModal";
 // import {getDataAction} from "../Redux/action"
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
+// import { AuthState } from "../components/AuthContext";
 
 const Blogs = ({ search }) => {
   let [blogs, setBlogs] = useState();
 
   // let { token, isLoading } = useSelector((store) => store);
+  // let {token} = AuthState()
+
   // let {blogs} = useSelector((store) => store)
   // console.log(blogs)
   // console.log(token);
@@ -21,7 +24,6 @@ const Blogs = ({ search }) => {
   let cookieToken = Cookies.get("token");
   let cookieUser = Cookies.get("user");
   let navigate = useNavigate();
-  let dispatch = useDispatch();
 
   // let ls = localStorage.getItem("token")
 
@@ -78,6 +80,7 @@ const Blogs = ({ search }) => {
     <div>
       <div className="heading_create_blog">
         <h1>Blogs</h1>
+
         <Tooltip title="Post Blog" color="red">
           <PostAddIcon
             onClick={() => navigate("/blogs/createblogs")}
@@ -88,13 +91,10 @@ const Blogs = ({ search }) => {
       <div className="main_blogs_div">
         {blogs?.map((item, index) => {
           return (
-            <div
-              key={index}
-              onClick={() => navigate(`/blogs/details/${item.title}`)}
-            >
+            <div key={index}>
               <img src={item.image} alt="image" />
               <h2>Title:- {item.title}</h2>
-              <p>Content:- {item.blog_content}</p>
+              {/* <p>Content:- {item.blog_content}</p> */}
               {item.category.map((el, index) => (
                 <p key={index}>Category:- {el}</p>
               ))}
@@ -114,6 +114,19 @@ const Blogs = ({ search }) => {
                   </Tooltip>
                 ) : null}
               </div>
+              <Button
+                onClick={() => navigate(`/blogs/details/${item.title}`)}
+                style={{
+                  backgroundColor: "green",
+                  border: "none",
+                  color: "white",
+                  fontSize: "1rem",
+                  width: "55%",
+                  margin: "1rem",
+                }}
+              >
+                Details
+              </Button>
             </div>
           );
         })}
