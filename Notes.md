@@ -566,3 +566,44 @@ https://www.geeksforgeeks.org/javascript-throttling/
 
 Throttling is used to call a function after every millisecond or a particular interval of time only the first click is executed immediately.
   
+## var, let and const
+
+| var  | let | const |
+| ------------- | ------------- | ------------- | 
+| The scope of a var variable is functional scope. | The scope of a let variable is block scope. | The scope of a const variable is block scope. |
+|It can be updated and re-declared into the scope. |It can be updated but cannot be re-declared into the scope. | It cannot be updated or re-declared into the scope.|
+|It can be declared without initialization. |It can be declared without initialization. |It cannot be declared without initialization.|
+|It can be accessed without initialization as its default value is “undefined”. |It cannot be accessed without initialization otherwise it will give ‘referenceError’. |It cannot be accessed without initialization, as it cannot be declared without initialization.|
+|hoisting done, with initializing as ‘default’ value |Hoisting is done , but not initialized (this is the reason for the error when we access the let variable before declaration/initialization |Hoisting is done, but not initialized (this is the reason for error when we access the const variable before declaration/initialization |
+
+## Spread oprator
+The spread operator,, is a feature introduced in ECMAScript 6 (ES6) that allows an iterable such as an array or a string to be expanded into individual elements. The spread operator can be used in several ways in JavaScript, such as:
+- To spread the contents of an array into a new array:
+ ```
+const arr1 = [1, 2, 3];
+const arr2 = [...arr1, 4, 5, 6];
+console.log(arr2); // [1, 2, 3, 4, 5, 6]
+```
+- To concatenate multiple arrays:
+ ```
+const arr1 = [1, 2];
+const arr2 = [3, 4];
+const arr3 = [5, 6];
+const arr4 = [...arr1, ...arr2, ...arr3];
+console.log(arr4); // [1, 2, 3, 4, 5, 6]
+```
+- To copy an array:
+```
+const arr1 = [1, 2, 3];
+const arr2 = [...arr1];
+console.log(arr2); // [1, 2, 3]
+```
+- To pass arguments as individual values to a function:
+```
+  function myFunction(x, y, z) {
+  console.log(x + y + z);
+}
+const arr = [1, 2, 3];
+myFunction(...arr); // 6
+```
+  
