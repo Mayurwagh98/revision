@@ -260,3 +260,155 @@ Promises are a way of handling asynchronous operations in JavaScript. They repre
 3. Rejected: This state means that the promise has been rejected due to some error or failure in the operation. When a promise is rejected, it returns a reason for the rejection.
 
 ## What are hooks?
+allow functional components to have state and lifecycle functionality without using class components.
+
+## What are useEffect and useRef?
+useEffect: 
+1. useEffect is a hook in React that allows functional components to perform side effects, such as fetching data, subscribing to events, or updating the DOM, after the component has rendered.
+2. It is similar to lifecycle methods like componentDidMount, componentDidUpdate, and componentWillUnmount in class components.
+
+useRef: 
+1. useRef is a hook in React that allows functional components to create and maintain a reference to a mutable value that persists across renders. 
+2. It is commonly used to get a reference to a DOM element, store a mutable value that doesn't trigger re-renders, or cache a value that needs to be persisted across renders.
+3. useRef returns a mutable ref object with a current property that can be used to store and access the mutable value.
+4. The `current` property can be updated without triggering a re-render of the component.
+```
+import React, { useRef } from 'react';
+
+function InputComponent() {
+  const inputRef = useRef(null);
+
+  const handleButtonClick = () => {
+    // Access input value using ref
+    console.log('Input value:', inputRef.current.value);
+  };
+
+  return (
+    <div>
+      <input ref={inputRef} type="text" />
+      <button onClick={handleButtonClick}>Get Input Value</button>
+    </div>
+  );
+}
+```
+## What is the difference between useState and useEffect?
+1. useState is a hook in React that allows functional components to manage local state.
+2. It returns an array with two values: the current state value and a function to update the state.
+```
+import React, { useState } from 'react';
+
+function CounterComponent() {
+  const [count, setCount] = useState(0); // Initial state value is 0
+
+  const increment = () => {
+    setCount(count + 1); // Update count state
+  };
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+    </div>
+  );
+}
+```
+useEffect: 
+1. useEffect is a hook in React that allows functional components to perform side effects, such as fetching data, subscribing to events, or updating the DOM, after the component has rendered.
+
+## Explain oops concept.
+1. Objects: Objects are the fundamental building blocks of OOP in JavaScript. An object is a collection of properties, which are key-value pairs, and methods, which are functions associated with the object. 
+2. Objects in JavaScript can be created using object literals, constructor functions, and the ES6+ class syntax.
+```
+// Object literal
+let person = {
+  name: "John",
+  age: 30,
+  sayHello: function() {
+    console.log("Hello, my name is " + this.name + " and I'm " + this.age + " years old.");
+  }
+};
+
+// Constructor function
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.sayHello = function() {
+    console.log("Hello, my name is " + this.name + " and I'm " + this.age + " years old.");
+  }
+}
+
+let person = new Person("John", 30);
+person.sayHello();
+
+// ES6+ class syntax
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  sayHello() {
+    console.log("Hello, my name is " + this.name + " and I'm " + this.age + " years old.");
+  }
+}
+
+let person = new Person("John", 30);
+person.sayHello();
+```
+Inheritance: 
+1. Inheritance allows objects to inherit properties and methods from other objects. 
+2. In JavaScript, you can achieve inheritance using prototypes, which are objects that are associated with other objects as their prototype.
+3. This allows objects to share properties and methods among themselves.
+```
+// Using prototypes for inheritance
+function Animal(name) {
+  this.name = name;
+}
+
+Animal.prototype.sayName = function() {
+  console.log("My name is " + this.name);
+}
+
+function Dog(name, breed) {
+  Animal.call(this, name);
+  this.breed = breed;
+}
+
+Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.constructor = Dog;
+
+Dog.prototype.sayBreed = function() {
+  console.log("I am a " + this.breed);
+}
+
+let dog = new Dog("Buddy", "Labrador");
+dog.sayName(); // Output: My name is Buddy
+dog.sayBreed(); // Output: I am a Labrador
+```
+Encapsulation: 
+1. Encapsulation is the process of hiding the internal details of an object and exposing only what is necessary.
+2. In JavaScript, encapsulation can be achieved using closures and the module pattern, which allows you to create private variables and methods that are not accessible from outside the object.
+```
+// Encapsulation using closures
+function Counter() {
+  let count = 0; // private variable
+
+  this.increment = function() {
+    count++;
+  }
+
+  this.decrement = function() {
+    count--;
+  }
+
+  this.getCount = function() {
+    return count;
+  }
+}
+
+let counter = new Counter();
+counter.increment();
+counter.increment();
+counter.decrement();
+console.log(counter.getCount()); // Output: 1
+```
