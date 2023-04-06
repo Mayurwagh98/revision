@@ -1,0 +1,24 @@
+.critical_div {
+    border: 1px solid red;
+
+}
+
+.major_div {
+    border: 1px solid orange;
+}
+
+.medium_div {
+    border: 1px solid blue;
+}
+
+.low_div {
+    border: 1px solid green;
+}
+
+Button {
+    margin: 10px;
+}
+
+.create_form>Input {
+    margin: 10px;
+}
