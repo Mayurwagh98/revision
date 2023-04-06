@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Button, Input, Modal } from "antd";
+import { major, critical, medium, low } from "../Redux/bug/action";
+import "./AddBugs.css";
 
-const AddBugs = () => {
-  let { critical_severity } = useSelector((store) => store);
-  console.log(critical_severity);
-  
+const AddBugs = ({ id }) => {
+  let { major_severity, critical_severity, medium_severity, low_severity } =
+    useSelector((store) => store.bugReducer);
+  console.log(critical_severity, major_severity, medium_severity, low_severity);
+
   let [bug, setBug] = useState("");
-
+  let dispatch = useDispatch();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
@@ -20,11 +23,22 @@ const AddBugs = () => {
     setIsModalOpen(false);
   };
 
+  let handleBug = () => {
+    if (id == "critical") {
+      dispatch(critical(bug));
+    } else if (id == "major") {
+      dispatch(major(bug));
+    } else if (id == "medium") {
+      dispatch(medium(bug));
+    } else {
+      dispatch(low(bug));
+    }
+  };
 
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        Add Tasks
+        {id}
       </Button>
       <Modal
         title=""
@@ -43,6 +57,7 @@ const AddBugs = () => {
             type="submit"
             value="Add Tasks"
             className="create_input"
+            onClick={handleBug}
             style={{
               border: "none",
               fontSize: "1rem",
@@ -54,6 +69,50 @@ const AddBugs = () => {
           />
         </form>
       </Modal>
+
+      {/* ------------- critical mapped ---------------- */}
+      {id == "critical"
+        ? critical_severity?.map((item, index) => {
+            return (
+              <div key={index} className="critical_div">
+                {item}
+              </div>
+            );
+          })
+        : null}
+
+      {/* ------------- major mapped ---------------- */}
+      {id == "major"
+        ? major_severity?.map((item, index) => {
+            return (
+              <div key={index} className="major_div">
+                {item}
+              </div>
+            );
+          })
+        : null}
+
+      {/* ------------- medium mapped ---------------- */}
+      {id == "medium"
+        ? medium_severity?.map((item, index) => {
+            return (
+              <div key={index} className="medium_div">
+                {item}
+              </div>
+            );
+          })
+        : null}
+
+      {/* ------------- low mapped ---------------- */}
+      {id == "low"
+        ? low_severity?.map((item, index) => {
+            return (
+              <div key={index} className="low_div">
+                {item}
+              </div>
+            );
+          })
+        : null}
     </>
   );
 };
