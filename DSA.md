@@ -296,3 +296,188 @@ function maxSum(arr, n, k) {
         return max;
     }
 ```
+## Find the 2nd largest number in the array.
+```
+function findSecondLargest(arr) {
+  let largest = -Infinity;
+  let secondLargest = -Infinity;
+  
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > largest) {
+      secondLargest = largest;
+      largest = arr[i];
+    } else if (arr[i] > secondLargest && arr[i] !== largest) {
+      secondLargest = arr[i];
+    }
+  }
+  
+  return secondLargest;
+}
+
+const arr = [5, 2, 8, 10, 1];
+const secondLargest = findSecondLargest(arr);
+console.log(secondLargest); // Output: 8
+
+```
+## Rotate the Matrix in a clockwise direction
+```
+function rotateMatrix(matrix) {
+  const numRows = matrix.length;
+  const numCols = matrix[0].length;
+  const rotatedMatrix = [];
+
+  for (let i = 0; i < numCols; i++) {
+    rotatedMatrix[i] = [];
+    for (let j = 0; j < numRows; j++) {
+      rotatedMatrix[i][j] = matrix[numRows - j - 1][i];
+    }
+  }
+
+  return rotatedMatrix;
+}
+```
+## Balanced parentheses Problem.
+```
+function balancedParentheses(str) {
+  const stack = [];
+
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charAt(i);
+
+    if (char === '(' || char === '[' || char === '{') {
+      stack.push(char);
+    } else {
+      const top = stack.pop();
+      if ((char === ')' && top !== '(') ||
+          (char === ']' && top !== '[') ||
+          (char === '}' && top !== '{')) {
+        return false;
+      }
+    }
+  }
+
+  return stack.length === 0;
+}
+
+const str1 = '()[]{}';
+console.log(balancedParentheses(str1)); // Output: true
+
+const str2 = '([)]';
+console.log(balancedParentheses(str2)); // Output: false
+```
+## Count the frequency of a given character in the given String.
+```
+function countChar(str, char) {
+  let count = 0;
+  
+  for (let i = 0; i < str.length; i++) {
+    if (str.charAt(i) === char) {
+      count++;
+    }
+  }
+  
+  return count;
+}
+
+const str = 'hello world';
+const char = 'l';
+const count = countChar(str, char);
+console.log(count); // Output: 3
+
+```
+## Insert the new element to the array at the specified index
+```
+let arr = [1, 2, 3, 4, 5];
+arr.splice(2, 0, "new element");
+console.log(arr); // Output: [1, 2, "new element", 3, 4, 5]
+```
+## - Write a program for the below format. (Input array:
+    
+['abc@gmail.com', 'def@yahoo.com', '[hello@gmail.com](mailto:hello@gmail.com)'])
+    
+Format: (Array of objects)
+
+```
+const emails = ['abc@gmail.com', 'def@yahoo.com', 'hello@gmail.com'];
+
+const emailObjects = emails.map(email => {
+  const [username, domain] = email.split('@');
+  return { username, domain };
+});
+
+console.log(emailObjects);
+```
+## Check Palindrome
+```
+function isPalindrome(str) {
+  const reversedStr = str.split("").reverse().join("");
+  return str === reversedStr;
+}
+
+console.log(isPalindrome("racecar")); // Output: true
+console.log(isPalindrome("hello")); // Output: false
+```
+## Remove duplicates from the array
+```
+const arr = [1, 2, 2, 3, 4, 4, 5];
+const uniqueArr = arr.filter((value, index, self) => {
+  return self.indexOf(value) === index;
+});
+
+console.log(uniqueArr); // Output: [1, 2, 3, 4, 5]
+```
+## Swap two numbers without using a third variable or any inbuilt function
+```
+let a = 5;
+let b = 8;
+
+a = a + b;
+b = a - b;
+a = a - b;
+
+console.log("a =", a); // Output: a = 8
+console.log("b =", b); // Output: b = 5
+```
+## Replace the even position character of a string with *
+```
+const str = "Hello World";
+const newStr = str.split("").map((char, index) => {
+  return index % 2 === 0 ? char : "*";
+}).join("");
+
+console.log(newStr); // Output: "H*l o*o*d"
+```
+## Check if string A is a subsequence of string B or not and then the minimum no of operations needed to convert into a subsequence
+```
+function isSubsequence(a, b) {
+  let i = 0;
+  for (let j = 0; j < b.length && i < a.length; j++) {
+    if (a[i] === b[j]) {
+      i++;
+    }
+  }
+  return i === a.length;
+}
+```
+Alternate dp solution
+```
+function minOperationsToSubsequence(a, b) {
+  const dp = Array(a.length + 1).fill().map(() => Array(b.length + 1).fill(0));
+  for (let j = 1; j <= b.length; j++) {
+    dp[0][j] = 0;
+  }
+  for (let i = 1; i <= a.length; i++) {
+    dp[i][0] = Infinity;
+  }
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      if (a[i-1] === b[j-1]) {
+        dp[i][j] = dp[i-1][j-1];
+      } else {
+        dp[i][j] = Math.min(dp[i-1][j] + 1, dp[i][j-1] + 1);
+      }
+    }
+  }
+  return dp[a.length][b.length];
+}
+```
