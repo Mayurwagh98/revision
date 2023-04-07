@@ -527,3 +527,27 @@ https://medium.com/edge-coders/the-difference-between-flux-and-redux-71d31b118c1
 | Store manages logic | Reducer manages logic  |
 | Flux is a pattern | Redux is a library  |
 | Flux has a single dispatcher and all actions have to pass through that dispatcher.  | Redux has no dispatcher entity. Instead, the store has the dispatching process baked in. |
+
+## What is AJAX?
+1. AJAX (Asynchronous JavaScript and XML) is a technique used in web development to create dynamic web applications. 
+2. It enables web pages to be updated asynchronously by exchanging small amounts of data with the server, without requiring a page reload.
+3. For example, you can use AJAX to fetch data from a server and update a part of a web page without refreshing the entire page. 
+
+## Features of ES6
+1. Arrow Functions: This is a shorthand syntax for creating functions in JavaScript, making it easier to write and read code.
+2. Classes: ES6 introduced class syntax to JavaScript, making it easier to write object-oriented code.
+3. Template literals: This feature allows for the easy creation of multi-line strings and the interpolation of variables in strings.
+4. Let and const: These are new ways to declare variables in JavaScript, providing better scoping and preventing accidental reassignments.
+5. Default function parameters: This feature allows for default values to be set for function parameters, making it easier to write robust and flexible functions.
+6. Destructuring: This is a shorthand syntax for extracting values from objects and arrays.
+7. Spread operator: This operator allows for the easy merging of arrays or objects, as well as the spread of values in function calls.
+8. Promises: Promises are a new way to handle asynchronous operations in JavaScript, providing a cleaner and more intuitive syntax than traditional callback-based approaches.
+9. Modules: ES6 introduced a new syntax for defining and importing/exporting modules in JavaScript, making it easier to organize and share code across projects.
+
+## Difference between normal function and arrow function?
+## What is `this` keyword
+## What is webpack
+## Lifecycle meadthods in react js
+## What is router in react js?
+## How to optimize the performance of the web application?
+## Diff between real and virtual DOM?
