@@ -54,17 +54,18 @@ React.DOM.render(<Title />, documentgetElementById("root")
 | Props make components reusable.  | State cannot make components reusable.  |
 | Props are external and controlled by whatever renders the component. | The State is internal and controlled by the React Component itself.  |
 
-- What is SSR and CSR?
+## What is SSR and CSR?
 SSR: Server-Side Rendering - rendering a client-side or universal app to HTML on the server.
+
 CSR: Client-Side Rendering - rendering an app in a browser, generally using the DOM.
 
-- What are sideeffects
+## What are sideeffects
 1. When we talk about side effects in the context of React.js, we are referring to anything that is outside the scope of React
 2. So calling any native Web APIs will be considered as a side effect as it’s not within the React universe
 3. Making a HTTPS request to an external API is another example of a side effect and the list goes on…
 4. We usually manage React side effects inside the useEffect hook (part of the React Hooks API)
 
-- Pure functions
+## Pure functions
 The definition of Pure Component says that for specific input parameters, we always have a specific output. The output is solely dependent on Input parameters and no other external variable.
 ```
 var initialValue = 10;
@@ -91,7 +92,7 @@ function addData(firstInput, secondInput) {
 
 var getData = addData(1, 2);
 ```
-- Pure Component
+## Pure Component
 1. Pure Components in React are the components which do not re-renders when the value of state and props has been updated with the same values
 2. If the value of the previous state or props and the new state or props is the same, the component is not re-rendered.
 - Features of React Pure Components
@@ -100,7 +101,7 @@ var getData = addData(1, 2);
 3. State and Props are Shallow Compared
 4. Pure Components are more performant in certain cases
 
-- What are useRefs? What are some usecases?
+## What are useRefs? What are some usecases?
 1. The useRef Hook allows you to persist values between renders.
 2. It can be used to store a mutable value that does not cause a re-render when updated.
 3. It can be used to access a DOM element directly.
@@ -534,20 +535,94 @@ https://medium.com/edge-coders/the-difference-between-flux-and-redux-71d31b118c1
 3. For example, you can use AJAX to fetch data from a server and update a part of a web page without refreshing the entire page. 
 
 ## Features of ES6
-1. Arrow Functions: This is a shorthand syntax for creating functions in JavaScript, making it easier to write and read code.
-2. Classes: ES6 introduced class syntax to JavaScript, making it easier to write object-oriented code.
-3. Template literals: This feature allows for the easy creation of multi-line strings and the interpolation of variables in strings.
-4. Let and const: These are new ways to declare variables in JavaScript, providing better scoping and preventing accidental reassignments.
-5. Default function parameters: This feature allows for default values to be set for function parameters, making it easier to write robust and flexible functions.
-6. Destructuring: This is a shorthand syntax for extracting values from objects and arrays.
-7. Spread operator: This operator allows for the easy merging of arrays or objects, as well as the spread of values in function calls.
-8. Promises: Promises are a new way to handle asynchronous operations in JavaScript, providing a cleaner and more intuitive syntax than traditional callback-based approaches.
-9. Modules: ES6 introduced a new syntax for defining and importing/exporting modules in JavaScript, making it easier to organize and share code across projects.
+1. `Arrow Functions`: This is a shorthand syntax for creating functions in JavaScript, making it easier to write and read code.
+2. `Classes`: ES6 introduced class syntax to JavaScript, making it easier to write object-oriented code.
+3. `Template literals`: This feature allows for the easy creation of multi-line strings and the interpolation of variables in strings.
+4. `Let and const`: These are new ways to declare variables in JavaScript, providing better scoping and preventing accidental reassignments.
+5. `Default function parameters`: This feature allows for default values to be set for function parameters, making it easier to write robust and flexible functions.
+6. `Destructuring`: This is a shorthand syntax for extracting values from objects and arrays.
+7. `Spread operator`: This operator allows for the easy merging of arrays or objects, as well as the spread of values in function calls.
+8. `Promises`: Promises are a new way to handle asynchronous operations in JavaScript, providing a cleaner and more intuitive syntax than traditional callback-based approaches.
+9. `Modules`: ES6 introduced a new syntax for defining and importing/exporting modules in JavaScript, making it easier to organize and share code across projects.
 
 ## Difference between normal function and arrow function?
-## What is `this` keyword
-## What is webpack
-## Lifecycle meadthods in react js
+## What is `this` keyword?
+1. this keyword is a special identifier that refers to the current context, or the object that "owns" the code being executed.
+2. The value of this depends on how the function is called, and it can have different values in different contexts.
+3. Inside a method of an object: In this case, this refers to the object that the method is called on. For example:
+```
+const person = {
+  name: 'Alice',
+  greet() {
+    console.log(`Hello, my name is ${this.name}.`);
+  }
+};
+
+person.greet(); // outputs: "Hello, my name is Alice."
+```
+4. In a constructor function: In this case, this refers to the newly created object that the constructor is called on. For example:
+```
+function Person(name) {
+  this.name = name;
+  this.greet = function() {
+    console.log(`Hello, my name is ${this.name}.`);
+  }
+}
+
+const alice = new Person('Alice');
+alice.greet(); // outputs: "Hello, my name is Alice."
+```
+5. Inside a function that is not a method or a constructor: In this case, this depends on how the function is called. 
+- If the function is called as a standalone function, this will refer to the global object (i.e., window in a browser or global in Node.js). 
+- If the function is called as a method of an object, this will refer to the object. 
+- If the function is called with call() or apply(), this will refer to the object passed as the first argument to call() or apply(). 
+- If the function is called with bind(), this will be bound to the object passed as the first argument to bind(). For example:
+```
+function greet() {
+  console.log(`Hello, my name is ${this.name}.`);
+}
+
+const person = {
+  name: 'Alice'
+};
+
+greet(); // outputs: "Hello, my name is undefined."
+greet.call(person); // outputs: "Hello, my name is Alice."
+greet.apply(person); // outputs: "Hello, my name is Alice."
+const boundGreet = greet.bind(person);
+boundGreet(); // outputs: "Hello, my name is Alice."
+```
+## What is webpack?
+1. Webpack is a popular module bundler for modern web applications.
+2. It is an open-source tool that helps developers manage dependencies and assets, such as stylesheets, images, and scripts. 
+3. It supports a wide range of file formats, including JavaScript, CSS, HTML, and many others.
+4. Overall, Webpack is an essential tool for modern web development, helping developers to create efficient, optimized, and scalable web applications.
+
+## Lifecycle medthods
+There are three phases of a component's lifecycle: Mounting, Updating, and Unmounting. 
+### Mounting Phase: 
+1.  Mounting phase is the first phase of a component's lifecycle, during which the component is initialized and added to the DOM.
+2.  In other words, it is the process of creating a component and rendering it on the webpage.
+3.  During the Mounting phase, ReactJS executes four lifecycle methods in the following order:
+- constructor(): This method is called first and is used to initialize the component's state and bind event handlers. It takes in the props as an argument and initializes the component's state with a default value.
+- static getDerivedStateFromProps(): This method is called second and is used to update the component's state based on the props received from the parent component. It is a static method, which means it cannot access the component's instance or props. It takes in the props and state as arguments and returns an object that represents the new state.
+- render(): This method is called third and is used to render the component's UI based on the current state and props. It returns a React element, which is a lightweight description of what should be rendered on the webpage.
+- componentDidMount(): This method is called fourth and is used to perform any side effects, such as making API calls or setting up event listeners. It is called immediately after the component is mounted in the DOM.
+4. Overall, the Mounting phase is the process of creating a component, initializing its state and props, and rendering it on the webpage. It is an important phase that sets the foundation for the next phase, the Updating phase, during which the component's state and props may change.
+
+### Updating Phase:
+1. Updating phase is the second phase of a component's lifecycle, during which the component is updated based on changes to its state or props.
+2. In other words, it is the process of updating a component's UI based on new data.
+3. During the Updating phase, ReactJS executes five lifecycle methods in the following order:
+- static getDerivedStateFromProps(): This method is called first and is used to update the component's state based on changes to its props. It takes in the props and state as arguments and returns an object that represents the new state.
+- shouldComponentUpdate(): This method is called second and is used to determine whether the component should be re-rendered or not. It takes in the next props and state as arguments and returns a Boolean value that indicates whether the component should update or not.
+- render(): This method is called third and is used to render the component's UI based on the updated state and props.
+- getSnapshotBeforeUpdate(): This method is called fourth and is used to capture information about the component's current state, such as scroll position, which can be used later in the componentDidUpdate() method. It takes in the prev props and state as arguments and returns a snapshot value that can be used later.
+- componentDidUpdate(): This method is called fifth and is used to perform any side effects, such as updating the DOM or making API calls, after the component has been updated. It takes in the prev props, prev state, and snapshot value as arguments.
+
+### Unmouting phase:
+
+
 ## What is router in react js?
 ## How to optimize the performance of the web application?
 ## Diff between real and virtual DOM?
