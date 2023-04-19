@@ -9,13 +9,22 @@ const Home = () => {
   });
   let navigate = useNavigate();
 
+  let handleChange = (e) => {
+    let { name, value } = e.target;
+
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
+
   let handleSubmit = async () => {
     axios
       .post("http://localhost:8080/api/users/create", user)
       .then((res) => {
         console.log(res.data);
-        alert(res.data.message);
-        navigate("/playzone");
+        // alert(res.data.message);
+        // navigate("/playzone");
       })
       .catch((e) => console.log(e));
   };
@@ -28,10 +37,11 @@ const Home = () => {
         <input
           type="text"
           placeholder="Enter your name"
+          name="name"
           value={user.name}
-          onChange={(e) => setUser(e.target.value)}
+          onChange={handleChange}
         />
-        <select name="difficulty" onChange={(e) => setUser(e.target.value)}>
+        <select onChange={handleChange} name="difficulty">
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
