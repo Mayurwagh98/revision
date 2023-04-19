@@ -3,19 +3,15 @@ import "./Keyboard.css";
 
 const Keyboard = ({ randomWord, onChildData }) => {
   const [value, setValue] = useState("");
+  
   let word = "";
-  const [count, setCount] = useState(0);
-
   const handleKeyPress = (key) => {
     setValue(value + key);
     word += value + key;
 
     if (randomWord.length == word.length) {
-      if (word === randomWord) {
-        console.log("true");
-      } else if (word !== randomWord) {
-        console.log("false");
-      }
+      onChildData(word); // sending word to the parent component
+      setValue(""); // emptying the input field
     }
   };
 
@@ -32,7 +28,7 @@ const Keyboard = ({ randomWord, onChildData }) => {
 
   return (
     <div className="keyboard">
-      <button onClick={() => onChildData(value)}>Send Data to Parent</button>
+      {/* <button onClick={() => onChildData(value)}>Send Data to Parent</button> */}
       <input type="text" value={value} placeholder="Enter word here" />
       {keys.map((row, index) => (
         <div key={index} className="keyboard_row">
