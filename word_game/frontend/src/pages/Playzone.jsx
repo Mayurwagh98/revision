@@ -4,6 +4,9 @@ import { Keyboard } from "../components/Keyboard";
 
 const Playzone = () => {
   let [words, setWords] = useState([]);
+  let randomIndex = Math.floor(Math.random() * words.length);
+  let randomWord = words[randomIndex];
+  let [childData, setChildData] = useState("");
 
   let getWords = async () => {
     axios
@@ -19,13 +22,19 @@ const Playzone = () => {
     getWords();
   }, []);
 
-  let randomIndex = Math.floor(Math.random() * words.length);
+  let handleChildData = (data) => {
+    setChildData(data);
+    if (data === randomWord) {
+      console.log("true");
+    }
+  };
 
   return (
     <div>
-      <h1>{words[randomIndex]}</h1>
+      <h1>{randomWord}</h1>
+      {childData && <p>{childData}</p>}
 
-      <Keyboard />
+      <Keyboard randomWord={randomWord} onChildData={handleChildData} />
     </div>
   );
 };
