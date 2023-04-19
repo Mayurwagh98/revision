@@ -7,6 +7,7 @@ const Playzone = () => {
   let randomIndex = Math.floor(Math.random() * words.length);
   let randomWord = words[randomIndex];
   let [childData, setChildData] = useState("");
+  let [points, setPoints] = useState(0);
 
   let getWords = async () => {
     axios
@@ -23,17 +24,23 @@ const Playzone = () => {
   }, []);
 
   let handleChildData = (data) => {
-    setChildData(data);
+    setChildData(data); //receving the data from the child component
+
     if (data === randomWord) {
-      console.log("true");
+      // console.log("true");
+      setPoints((prev) => prev + data.length);
+    } else {
+      // console.log(false);
+      setPoints((prev) => prev - data.length);
     }
+    // setPoints((prev) => prev + data.length);
   };
 
   return (
     <div>
+      {/* {childData && <p>{childData}</p>} */}
       <h1>{randomWord}</h1>
-      {childData && <p>{childData}</p>}
-
+      <p>Points:- {points}</p>
       <Keyboard randomWord={randomWord} onChildData={handleChildData} />
     </div>
   );
