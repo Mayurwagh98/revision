@@ -8,6 +8,9 @@ const wordsDelete = require("./routes/words.routes")
 const getUsers = require("./routes/user.routes")
 const createUser = require("./routes/user.routes")
 const deleteUser = require("./routes/user.routes")
+const getResults = require("./routes/result.routes")
+const createResults = require("./routes/result.routes")
+const deleteResult = require("./routes/result.routes")
 
 app.use(express.json())
 app.use(cors())
@@ -19,5 +22,8 @@ app.use("/api",wordsDelete)
 app.use("/api",getUsers)
 app.use("/api",createUser)
 app.use("/api",deleteUser)
+app.use("/api",getResults)
+app.use("/api",createResults)
+app.use("/api",deleteResult)
 
 module.exports = app

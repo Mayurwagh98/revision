@@ -2,9 +2,9 @@ const Words = require("../models/words.models")
 
 const wordsFunc = async(req, res) =>{
 
-    const singleWord = await Words.find()
+    const words = await Words.find()
 
-    res.send(singleWord)
+    res.send(words)
 }
 
 const wordsPost = async(req, res) =>{
@@ -23,8 +23,6 @@ const wordsUpdate = async(req, res) =>{
 
     let wordId = req.params.id
     let existingWord = await Words.findOne({wordId})
-    let wordsArray = await Words.find()
-    
 
     try {
 
