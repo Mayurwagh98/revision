@@ -8,6 +8,8 @@ const Playzone = () => {
   let randomWord = words[randomIndex];
   let [childData, setChildData] = useState("");
   let [points, setPoints] = useState(0);
+  let user = JSON.parse(localStorage.getItem("user"));
+  console.log(user);
 
   let getWords = async () => {
     axios
@@ -36,9 +38,23 @@ const Playzone = () => {
     // setPoints((prev) => prev + data.length);
   };
 
+  let saveResults = async () => {
+    await axios
+      .post("http://localhost:8080/api/results/create", {
+        name: user.name,
+        level: user.difficulty,
+        scores: points,
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((e) => console.log(e));
+  };
+
   return (
     <div>
       {/* {childData && <p>{childData}</p>} */}
+      <button onClick={saveResults}>Save Progress</button>
       <h1>{randomWord}</h1>
       <p>Points:- {points}</p>
       <Keyboard randomWord={randomWord} onChildData={handleChildData} />
