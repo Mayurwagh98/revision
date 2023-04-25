@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../redux/action";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import "./Play.css";
 
 const Play = () => {
   let { users } = useSelector((store) => store);
@@ -17,25 +19,58 @@ const Play = () => {
       number = 10;
     }
   }
-  // create an array of 5 random numbers between 0 and 1
   let randomNumbers = Array.from(
     { length: number },
     () => Math.round(Math.random() * 100) + " "
   );
-  console.log(randomNumbers);
 
-  // create an array of 7 random numbers between 1 and 100
-  // let randomNumbers2 = new Array(7).fill().map(() => Math.floor(Math.random() * 100) + 1);
-  // console.log(randomNumbers2);
+  const [characters, updateCharacters] = useState(randomNumbers);
+  // console.log(characters);
 
-  // useEffect(() => {
-  //   dispatch(getUsers);
-  // }, []);
+  function handleOnDragEnd(result) {
+    if (!result.destination) return;
+
+    const items = Array.from(characters);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    updateCharacters(items);
+  }
 
   return (
     <div>
       <h2>Play</h2>
-      <div>{randomNumbers}</div>
+      {/* <div>{randomNumbers}</div> */}
+      <div className="drag_div">
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <Droppable droppableId="characters">
+            {(provided) => (
+              <ul
+                className="characters"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {characters.map((item, index) => {
+                  return (
+                    <Draggable key={item} draggableId={item} index={index}>
+                      {(provided) => (
+                        <li
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          {item}
+                        </li>
+                      )}
+                    </Draggable>
+                  );
+                })}
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </div>
     </div>
   );
 };
