@@ -9,10 +9,9 @@ const Playzone = () => {
   let [childData, setChildData] = useState("");
   let [points, setPoints] = useState(0);
   let user = JSON.parse(localStorage.getItem("user"));
-  console.log(user);
 
   let getWords = async () => {
-    axios
+    await axios
       .get("http://localhost:8080/api/words")
       .then((res) => {
         console.log(res.data[0].words);
@@ -29,13 +28,10 @@ const Playzone = () => {
     setChildData(data); //receving the data from the child component
 
     if (data === randomWord) {
-      // console.log("true");
       setPoints((prev) => prev + data.length);
     } else {
-      // console.log(false);
       setPoints((prev) => prev - data.length);
     }
-    // setPoints((prev) => prev + data.length);
   };
 
   let saveResults = async () => {
@@ -54,6 +50,7 @@ const Playzone = () => {
   return (
     <div>
       {/* {childData && <p>{childData}</p>} */}
+
       <button onClick={saveResults}>Save Progress</button>
       <h1>{randomWord}</h1>
       <p>Points:- {points}</p>
