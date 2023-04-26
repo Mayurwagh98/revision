@@ -3,19 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../redux/action";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import "./Play.css";
+import { Timer } from "../components/Timer";
 
 const Play = () => {
   let { users } = useSelector((store) => store);
-  // console.log(users);
-  // let dispatch = useDispatch();
+
+  let { difficulty } = users;
 
   let number;
   if (users) {
-    if (users.difficulty == "easy") {
+    if (difficulty == "easy") {
       number = 5;
-    } else if (users.difficulty == "medium") {
+    } else if (difficulty == "medium") {
       number = 7;
-    } else if (users.difficulty == "hard") {
+    } else if (difficulty == "hard") {
       number = 10;
     }
   }
@@ -39,7 +40,8 @@ const Play = () => {
 
   return (
     <div>
-      <h2>Play</h2>
+      <h2>Drag and Drop to arrange the numbers in correct manner</h2>
+      <Timer difficulty={difficulty} />
       {/* <div>{randomNumbers}</div> */}
       <div className="drag_div">
         <DragDropContext onDragEnd={handleOnDragEnd}>
