@@ -10,23 +10,29 @@ const Play = () => {
 
   let { difficulty } = users;
 
-  let number;
+  let randomNumbersArr = [];
+  let max;
+
   if (users) {
     if (difficulty == "easy") {
-      number = 5;
+      max = 5;
     } else if (difficulty == "medium") {
-      number = 7;
+      max = 7;
     } else if (difficulty == "hard") {
-      number = 10;
+      max = 10;
     }
   }
-  let randomNumbers = Array.from(
-    { length: number },
-    () => Math.round(Math.random() * 100) + " "
-  );
+  // generate an array of unique random numbers
+  for (let i = 0; i < max; i++) {
+    let randomNumber = Math.floor(Math.random() * max) + 1;
+    while (randomNumbersArr.includes(randomNumber)) {
+      randomNumber = Math.floor(Math.random() * max) + 1;
+    }
+    randomNumbersArr.push(randomNumber);
+  }
 
-  const [characters, updateCharacters] = useState(randomNumbers);
-  // console.log(characters);
+  const [characters, updateCharacters] = useState(randomNumbersArr);
+  console.log(characters);
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
@@ -42,7 +48,7 @@ const Play = () => {
     <div>
       <h2>Drag and Drop to arrange the numbers in correct manner</h2>
       <Timer difficulty={difficulty} />
-      {/* <div>{randomNumbers}</div> */}
+
       <div className="drag_div">
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <Droppable droppableId="characters">
@@ -54,7 +60,11 @@ const Play = () => {
               >
                 {characters.map((item, index) => {
                   return (
-                    <Draggable key={item} draggableId={item} index={index}>
+                    <Draggable
+                      key={item}
+                      draggableId={(item = item.toString())} // coverting number to string as it only takes string
+                      index={index}
+                    >
                       {(provided) => (
                         <li
                           ref={provided.innerRef}
