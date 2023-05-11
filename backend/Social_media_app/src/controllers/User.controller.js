@@ -9,7 +9,6 @@ let getUsers = async(req, res) =>{
         
         return res.status(200).send(users)
 
-
     } catch (error) {
         return res.status(500).send({message: error.message})
     }
