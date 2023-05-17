@@ -20,18 +20,18 @@ app.get("/", (req, res) =>{
 })
 
 
-const userSchema = new mongoose.Schema({
-    name:String,
-    email: String
-})
+// const userSchema = new mongoose.Schema({
+//     name:String,
+//     email: String
+// })
 
-const Users = mongoose.model("User", userSchema)
+// const Users = mongoose.model("User", userSchema)
 
 app.post("/", async(req, res) =>{
-    let {name, email} = req.body
+    // let {name, email} = req.body
     
-    await Users.create({name, email})
-
+    // await Users.create({name, email})
+    res.cookie("token","loggedin")
     res.redirect("logout")
     
 })
