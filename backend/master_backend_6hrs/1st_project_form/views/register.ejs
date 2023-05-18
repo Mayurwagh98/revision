@@ -9,19 +9,12 @@
   </head>
   <body>
     <main>
-      <form method="post" action="/login">
-        <h1>Login Now</h1>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value="<%=locals.email%>"
-        />
+      <form method="post">
+        <h1>Register Now</h1>
+        <input type="text" name="name" placeholder="Name" />
+        <input type="email" name="email" placeholder="Email" />
         <input type="password" name="password" placeholder="Password" />
-
-        <p class="error"><%= locals.message %></p>
-
-        <button type="submit">Log In</button>
+        <button type="submit">Sign Up</button>
       </form>
     </main>
   </body>
