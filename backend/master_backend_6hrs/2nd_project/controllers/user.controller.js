@@ -1,5 +1,5 @@
 const User = require("../models/users.model")
-const jwt = require("jsonwebtoken")
+const sendToken = require("../utils/token")
 const bcrypt = require("bcrypt")
 
 let register = async(req, res) =>{
@@ -20,12 +20,7 @@ let register = async(req, res) =>{
 
         user = await User.create({name, email, password: hashedPassword})
 
-        let token = jwt.sign({_id: user._id}, process.env.JWT_SECRET)
-
-        return res.status(201).cookie("token", token).json({
-            status:true,
-            message:"Registered Successfully"
-        })
+        sendToken(res, "Registered Successfully", 201, user)
 
     }
     catch(error){
