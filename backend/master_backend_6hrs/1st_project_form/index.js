@@ -1,8 +1,10 @@
+const cookieParser = require("cookie-parser")
 const express = require("express")
 const port = 5000
 const app = express()
 const mongoose = require("mongoose")
 const path = require("path")
+
 
 
 mongoose.connect("mongodb+srv://mayur:mayur@cluster0.ldawsar.mongodb.net/",{
@@ -12,11 +14,23 @@ mongoose.connect("mongodb+srv://mayur:mayur@cluster0.ldawsar.mongodb.net/",{
 
 app.use(express.static(path.join(path.resolve(), "public")))
 app.use(express.urlencoded({extended: true}))
+app.use(cookieParser())
 
 app.set("view engine", "ejs")
 
-app.get("/", (req, res) =>{
-    res.render("login")
+// middleware
+let isAuthenticated = (req, res, next) =>{
+    let {token} = req.cookies
+    if(token){
+        next()
+    }
+    else{
+        res.render("login")
+    }
+}
+
+app.get("/", isAuthenticated,(req, res) =>{
+   res.render("logout")
 })
 
 
@@ -27,17 +41,23 @@ app.get("/", (req, res) =>{
 
 // const Users = mongoose.model("User", userSchema)
 
-app.post("/", async(req, res) =>{
-    // let {name, email} = req.body
-    
-    // await Users.create({name, email})
-    res.cookie("token","loggedin")
-    res.redirect("logout")
+app.post("/login",async(req, res) =>{
+    res.cookie("token","loggedin",{
+        httpOnly:true,
+        expires: new Date(Date.now() + 60000)
+    })
+    res.redirect("/")
     
 })
 
 app.get("/logout",(req, res) =>{
-    res.render("logout")
+   
+    res.cookie("token",null,{
+        httpOnly:true,
+        expires: new Date(Date.now())
+    })
+    res.redirect("/")
+    
 })
 
 app.listen(port, () =>{
