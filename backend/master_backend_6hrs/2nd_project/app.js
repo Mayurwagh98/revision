@@ -11,9 +11,11 @@ const GetTasks = require("./routes/task.route")
 const AddTask = require("./routes/task.route")
 const UpdateTask = require("./routes/task.route")
 const DeleteTask = require("./routes/task.route")
+const { errorMiddleware } = require("./middlewares/error")
 
 app.use(express.json())
 app.use(cookieParser())
+
 
 app.use("/api/users", UserRegister)
 app.use("/api/users", UserLogin)
@@ -25,5 +27,7 @@ app.use("/api/tasks", GetTasks)
 app.use("/api/tasks", AddTask)
 app.use("/api/tasks", UpdateTask)
 app.use("/api/tasks", DeleteTask)
+
+app.use(errorMiddleware);
 
 module.exports = app

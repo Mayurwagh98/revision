@@ -1,4 +1,5 @@
 const Task = require("../models/task.model")
+const {ErrorHandler, errorMiddleware} = require("../middlewares/error")
 
 const getTasks = async(req, res) =>{
 
@@ -11,26 +12,18 @@ const getTasks = async(req, res) =>{
         })
     }
     catch(error){
-        return res.status(500).json({
-            status: false,
-            message: error.message
-        })
+       next(error)
     }
 }
 
-const createTask = async(req, res) =>{
+const createTask = async(req, res, next) =>{
 
     let {title, description} = req.body
 
     let task = await Task.findOne({title})
 
     try {
-        if(task){
-            return res.status(400).json({
-                status: false,
-                message:"Task doesn't exsist"
-            })
-        }
+        if(task) return next(new ErrorHandler("Task Already Exists"))
 
         task = await Task.create({title, description,user: req.user,})
 
@@ -39,70 +32,51 @@ const createTask = async(req, res) =>{
             message: "Task added Successfully"
         })
     } catch (error) {
-        return res.status(500).json({
-            status: false,
-            message: error.message
-        })   
+      next(error)
     }
 }
 
-let updateTask = async(req, res) =>{
+let updateTask = async(req, res, next) =>{
 
     let {id} = req.params
 
     let task = await Task.findById(id)
-
     try {
-        if(!task){
-            return res.status(404).json({
-                status: false,
-                message: "Task doesn't exists"
-            })
-        }
+        
+        if(!task) return next(new ErrorHandler("Task Doesn't Exists", 404))
 
         task.completed = !task.completed
         await task.save()
 
-        return  res.status(200).json({
+        return res.status(200).json({
             status:true,
             message: "Task Updated"
         })
 
     } catch (error) {
-        return res.status(500).json({
-            status: false,
-            message: error.message
-        })
+      next(error)
     }
-
+    
 }
 
-let deleteTask = async(req, res) =>{
+let deleteTask = async(req, res, next) =>{
 
     let {id} = req.params
 
     let task = await Task.findById(id)
 
     try {
-        if(!task){
-            return res.status(404).josn({
-                status: false,
-                message: "Task doesn't exists"
-            })
-        }
+        if(!task) return next(new ErrorHandler("Task Doesn't Exists", 404))
 
         await task.deleteOne()
 
         return res.status(200).json({
             status: true,
-            message: "Deleted Successfully"
+            message: "Task Deleted Successfully"
         })
 
     } catch (error) {
-        return res.status(500).json({
-            status: false,
-            message: error.message
-        })
+        next(error)
     }
 }
 

@@ -1,21 +1,17 @@
+const { ErrorHandler } = require("../middlewares/error")
 const User = require("../models/users.model")
 const sendToken = require("../utils/token")
 const bcrypt = require("bcrypt")
 
 // user auth
-let register = async(req, res) =>{
+let register = async(req, res, next) =>{
     
     let {name, email, password} = req.body
 
     let user = await User.findOne({email})
 
     try{
-        if(user){
-            return res.status(400).json({
-                status:false,
-                message:"User Already Registered"
-            })
-        }
+        if(user) return next(new ErrorHandler("User Already Registered", 400))
 
         let hashedPassword = await bcrypt.hash(password, 10)
 
@@ -25,48 +21,32 @@ let register = async(req, res) =>{
 
     }
     catch(error){
-        return res.status(500).json({
-            status:false,
-            message: error.message
-        })
+       next(error)
     }
 }
 
-let login = async(req, res) =>{
+let login = async(req, res, next) =>{
 
     let {email, password} = req.body
 //using select because in the schema I have kept select: false, so I can't access password without using select
     let user = await User.findOne({email}).select("+password") 
 
     try{
-        if(!user){
-            return res.status(404).send({
-                status:false,
-                message: "Invalid Credentials"
-            })
-        }   
+        if(!user) return next(new ErrorHandler("Invalid Credentials", 400))
 
         let matchedPassword = await bcrypt.compare(password, user.password)
 
-        if(!matchedPassword){
-            return res.status(400).send({
-                status: false,
-                message: "Invalid Credentials"
-            })
-        }
+        if(!matchedPassword) return next(new ErrorHandler("Invalid Credentials", 400))
 
         sendToken(res, `Welcome ${user.name}`, 200, user)
     }
     catch(error){
-        return res.status(500).send({
-            status: false,
-            message: error.message
-        })
+     next(error)
     }
 
 }
 
-let getUsers = async(req, res) =>{
+let getUsers = async(req, res, next) =>{
 
     try{
         let users = await User.find()
@@ -77,20 +57,21 @@ let getUsers = async(req, res) =>{
         })
     }
     catch(error){
-        return res.status(500).json({
-            status: false,
-            message: error.message
-        })
+       next(error)
     }
 
 }
 
-let getMyDetails = async(req, res) =>{
+let getMyDetails = async(req, res, next) =>{
 
-    return res.status(200).json({
-        status: true,
-        user: req.user
-    })
+    try {
+        return res.status(200).json({
+            status: true,
+            user: req.user
+        })
+    } catch (error) {
+        next(error)
+    }
 }
 
 let logout = (req,res) =>{
