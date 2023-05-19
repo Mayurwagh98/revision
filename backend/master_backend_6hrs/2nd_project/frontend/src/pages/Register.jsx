@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { serverUrl } from "../main";
+import { serverUrl, Context } from "../main";
 
 const Register = () => {
   let [registerData, setRegisterData] = useState({
@@ -10,6 +10,7 @@ const Register = () => {
     email: "",
     password: "",
   });
+  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
 
   let handleChange = (event) => {
     let { name, value } = event.target;
@@ -27,6 +28,7 @@ const Register = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       };
       let { data } = await axios.post(
         `${serverUrl}/register`,
@@ -34,10 +36,19 @@ const Register = () => {
         config
       );
       toast.success(data.message);
+      setIsAuthenticated(true);
+      // setRegisterData({
+      //   name: "",
+      //   email: "",
+      //   password: "",
+      // });
     } catch (error) {
       toast.error(error.response.data.message);
+      setIsAuthenticated(false);
     }
   };
+
+  if (isAuthenticated) return <Navigate to={"/"} />;
 
   return (
     <div className="login">
