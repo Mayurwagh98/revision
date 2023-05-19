@@ -9,6 +9,8 @@ const Logout = require("./routes/user.route")
 
 const GetTasks = require("./routes/task.route")
 const AddTask = require("./routes/task.route")
+const UpdateTask = require("./routes/task.route")
+const DeleteTask = require("./routes/task.route")
 
 app.use(express.json())
 app.use(cookieParser())
@@ -21,5 +23,7 @@ app.use("/api/users", Logout)
 
 app.use("/api/tasks", GetTasks)
 app.use("/api/tasks", AddTask)
+app.use("/api/tasks", UpdateTask)
+app.use("/api/tasks", DeleteTask)
 
 module.exports = app

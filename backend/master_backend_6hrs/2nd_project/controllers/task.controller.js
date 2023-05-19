@@ -46,4 +46,64 @@ const createTask = async(req, res) =>{
     }
 }
 
-module.exports = {getTasks, createTask}
+let updateTask = async(req, res) =>{
+
+    let {id} = req.params
+
+    let task = await Task.findById(id)
+
+    try {
+        if(!task){
+            return res.status(404).json({
+                status: false,
+                message: "Task doesn't exists"
+            })
+        }
+
+        task.completed = !task.completed
+        await task.save()
+
+        return  res.status(200).json({
+            status:true,
+            message: "Task Updated"
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            status: false,
+            message: error.message
+        })
+    }
+
+}
+
+let deleteTask = async(req, res) =>{
+
+    let {id} = req.params
+
+    let task = await Task.findById(id)
+
+    try {
+        if(!task){
+            return res.status(404).josn({
+                status: false,
+                message: "Task doesn't exists"
+            })
+        }
+
+        await task.deleteOne()
+
+        return res.status(200).json({
+            status: true,
+            message: "Deleted Successfully"
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            status: false,
+            message: error.message
+        })
+    }
+}
+
+module.exports = {getTasks, createTask, updateTask, deleteTask}
