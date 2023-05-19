@@ -55,7 +55,7 @@ let login = async(req, res) =>{
             })
         }
 
-        sendToken(res, "Logged In Successfully!", 200, user)
+        sendToken(res, `Welcome ${user.name}`, 200, user)
     }
     catch(error){
         return res.status(500).send({
@@ -85,4 +85,20 @@ let getUsers = async(req, res) =>{
 
 }
 
-module.exports = {register, login, getUsers}
+let getMyDetails = async(req, res) =>{
+
+    return res.status(200).json({
+        status: true,
+        user: req.user
+    })
+}
+
+let logout = async(req,res) =>{
+
+    res.status(200).cookie("token",null,{expires:new Date(Date.now())}).json({
+        status:true,
+        message: "Logged Out"
+    })
+}
+
+module.exports = {register, login, getUsers, getMyDetails, logout}
