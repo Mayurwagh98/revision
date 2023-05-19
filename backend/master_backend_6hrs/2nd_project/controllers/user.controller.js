@@ -93,10 +93,11 @@ let getMyDetails = async(req, res) =>{
     })
 }
 
-let logout = async(req,res) =>{
+let logout = (req,res) =>{
 
-    res.status(200).cookie("token",null,{expires:new Date(Date.now())}).json({
+    return res.status(200).cookie("token",null,{expires:new Date(Date.now())}).json({
         status:true,
+        // user:req.user,
         message: "Logged Out"
     })
 }
