@@ -6,8 +6,8 @@ mongoose.set("strictQuery",true)
 const connectDb = () =>{
         mongoose.connect(process.env.MONGOURL,{
         dbName:"todo"
-    }).then(() => {
-        console.log("database connected")
+    }).then((c) => {
+        console.log(`database connected ${c.connection.host}`)
     }).catch((e) => console.log(e))
 }
 

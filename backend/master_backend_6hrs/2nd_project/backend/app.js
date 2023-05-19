@@ -1,12 +1,14 @@
 const express = require("express")
 const app = express()
 const cookieParser = require("cookie-parser")
+// ---- user routes ---------
 const UserRegister = require("./routes/user.route")
 const UserLogin = require("./routes/user.route")
 const GetUsers = require("./routes/user.route")
 const GetMyDetails = require("./routes/user.route")
 const Logout = require("./routes/user.route")
 
+// --------- tasks routes ----------
 const GetTasks = require("./routes/task.route")
 const AddTask = require("./routes/task.route")
 const UpdateTask = require("./routes/task.route")
