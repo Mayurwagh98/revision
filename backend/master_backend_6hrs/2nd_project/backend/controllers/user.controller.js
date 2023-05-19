@@ -76,7 +76,12 @@ let getMyDetails = async(req, res, next) =>{
 
 let logout = (req,res) =>{
 
-    return res.status(200).cookie("token",null,{expires:new Date(Date.now())}).json({
+    return res.status(200).cookie("token",null,{
+        expires:new Date(Date.now()), 
+        httpOnly: true,
+        maxAge: 15 * 60000, // cookie will be deleted after 15 mins
+        sameSite: process.env.NODE_ENV === "Development"? "lax":"none", // to be able to access from diff domains
+        secure: process.env.NODE_ENV === "Development"? false: true}).json({
         status:true,
         // user:req.user,
         message: "Logged Out"
