@@ -9,7 +9,8 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
+  const { isAuthenticated, setIsAuthenticated, loading, setLoading } =
+    useContext(Context);
 
   let handleChange = (event) => {
     let { name, value } = event.target;
@@ -22,6 +23,7 @@ const Login = () => {
 
   let handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       let config = {
         headers: {
@@ -36,10 +38,12 @@ const Login = () => {
         password: "",
       });
       setIsAuthenticated(true);
+      setLoading(false);
     } catch (error) {
-      // toast.error(error.response.data.message);
-      console.log(error.message);
+      toast.error(error.response.data.message);
+      // console.log(error.message);
       setIsAuthenticated(false);
+      setLoading(false);
     }
   };
 
@@ -65,7 +69,9 @@ const Login = () => {
             value={loginData.password}
             onChange={handleChange}
           />
-          <button type="submit">Login</button>
+          <button type="submit" disabled={loading}>
+            Login
+          </button>
           <h4>Or</h4>
           <Link to="/register">Sign Up</Link>
         </form>

@@ -10,7 +10,8 @@ const Register = () => {
     email: "",
     password: "",
   });
-  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
+  const { isAuthenticated, setIsAuthenticated, loading, setLoading } =
+    useContext(Context);
 
   let handleChange = (event) => {
     let { name, value } = event.target;
@@ -23,6 +24,7 @@ const Register = () => {
 
   let handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       let config = {
         headers: {
@@ -37,14 +39,16 @@ const Register = () => {
       );
       toast.success(data.message);
       setIsAuthenticated(true);
-      // setRegisterData({
-      //   name: "",
-      //   email: "",
-      //   password: "",
-      // });
+      setLoading(false);
+      setRegisterData({
+        name: "",
+        email: "",
+        password: "",
+      });
     } catch (error) {
       toast.error(error.response.data.message);
       setIsAuthenticated(false);
+      setLoading(false);
     }
   };
 

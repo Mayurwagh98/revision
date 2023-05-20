@@ -5,19 +5,23 @@ import { Link } from "react-router-dom";
 import { Context, serverUrl } from "../main";
 
 const Header = () => {
-  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
+  const { isAuthenticated, setIsAuthenticated, loading, setLoading } =
+    useContext(Context);
 
   let logoutHandler = async () => {
+    setLoading(true);
     try {
       let { data } = await axios.get(`${serverUrl}/logout`, {
-        // withCredentials: true,
+        withCredentials: true,
       });
 
       toast.success(data.message);
       setIsAuthenticated(false);
+      setLoading(false);
     } catch (error) {
       toast.error(error.message);
       setIsAuthenticated(true);
+      setLoading(true);
     }
   };
 
@@ -34,7 +38,9 @@ const Header = () => {
             Logout
           </Link>
         ) : (
-          <Link to={"/login"}>Login</Link>
+          <Link to={"/login"}>
+            Login
+          </Link>
         )}
       </article>
     </nav>

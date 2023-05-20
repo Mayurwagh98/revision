@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from "react";
+import { Context } from "../main";
+import Loader from "../components/Loader";
 
 const Home = () => {
-  return (
-    <div>
-      <h1>Home</h1>
-    </div>
-  )
-}
+  let { loading, setLoading } = useContext(Context);
 
-export default Home
+  
+  return loading ? (
+    <Loader />
+  ) : (
+    <div>
+      <h1>home</h1>
+    </div>
+  );
+};
+
+export default Home;
