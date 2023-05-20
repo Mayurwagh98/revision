@@ -15,7 +15,7 @@ function App() {
     };
     axios
       .get(
-        `https://todo-fullstack-backend-06ao.onrender.com/api/users/mydetails`,
+        `${serverUrl}/mydetails`,
         config
       )
       .then((res) => {
