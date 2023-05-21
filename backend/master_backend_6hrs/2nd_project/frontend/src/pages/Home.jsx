@@ -3,6 +3,7 @@ import { Context, TasksUrl } from "../main";
 import axios from "axios";
 import toast from "react-hot-toast";
 import RenderTasks from "../components/RenderTasks";
+import { Navigate } from "react-router-dom";
 
 const Home = () => {
   let [taskLoader, setTaskLoader] = useState(false);
@@ -37,7 +38,6 @@ const Home = () => {
     await axios
       .post(`${TasksUrl}/addtask`, tasks, config)
       .then((res) => {
-        // console.log(res.data);
         toast.success(res.data.message);
         setTaskLoader(false);
         setRefresh((prev) => !prev);
@@ -63,7 +63,8 @@ const Home = () => {
         setRenderSingleTasks(res.data.tasks);
       })
       .catch((e) => {
-        console.log(e.message);
+        // console.log(e.message);
+        toast.error(e.response.data.message);
       });
   };
 
@@ -97,6 +98,8 @@ const Home = () => {
       toast.error(error.response.data.message);
     }
   };
+
+  if (!isAuthenticated) return <Navigate to={"/login"} />;
 
   return (
     <div className="container">
