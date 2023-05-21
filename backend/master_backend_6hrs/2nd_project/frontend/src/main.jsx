@@ -8,6 +8,8 @@ import { BrowserRouter } from "react-router-dom";
 export const serverUrl =
   "https://todo-fullstack-backend-06ao.onrender.com/api/users";
 
+export const TasksUrl = "https://todo-fullstack-backend-06ao.onrender.com/api/tasks"
+
 export const Context = createContext({ isAuthenticated: false });
 
 const ContextWrapper = () => {
